@@ -1229,19 +1229,31 @@ function BlockProduction() {
                 </motion.div>
               ))}
             </div>
-            {/* Mobile: компактный стек преимуществ — padding 14-16px, border-bottom */}
-            <div className="md:hidden space-y-0">
+            {/* Mobile: premium список преимуществ с иконками */}
+            <div className="md:hidden flex flex-col gap-[14px] w-full">
               {PRODUCTION_ACCENTS_MOBILE.map((line, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, y: 12 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.4, delay: 0.1 + i * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                  className="py-4 border-b border-[rgba(255,255,255,0.06)] first:pt-0 last:border-b-0"
+                  transition={{ duration: 0.45, delay: 0.12 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+                  className="flex items-center gap-3 text-left w-full"
                 >
-                  <p className="font-body font-light text-[16px] leading-[1.4]" style={{ color: '#EAEAEA' }}>
+                  <span
+                    className="shrink-0 mt-0.5"
+                    style={{ color: 'rgba(255,255,255,0.85)' }}
+                    aria-hidden
+                  >
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M20 6L9 17l-5-5" />
+                    </svg>
+                  </span>
+                  <span
+                    className="font-body font-light text-[15px] leading-[1.5]"
+                    style={{ color: 'rgba(255,255,255,0.88)' }}
+                  >
                     {line}
-                  </p>
+                  </span>
                 </motion.div>
               ))}
             </div>
