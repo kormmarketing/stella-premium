@@ -157,19 +157,19 @@ function Header() {
   return (
     <motion.header
       style={{ backgroundColor: bg, backdropFilter: blur, WebkitBackdropFilter: blur }}
-      className="fixed top-0 left-0 right-0 z-50 py-5 px-6 md:px-12 lg:px-16"
+      className="fixed top-0 left-0 right-0 z-50 py-5 px-6 md:px-12 lg:px-16 max-md:py-4 max-md:px-5"
     >
       <div className="max-w-content mx-auto flex justify-between items-center">
         <a href="/" className="font-body text-text-main text-[15px] font-light tracking-wide hover:text-text-muted transition-colors duration-300">
           StellaPremium
         </a>
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-8 max-md:gap-4">
           <a href={`tel:${PHONE.replace(/\s/g, '')}`} className="text-text-muted text-sm font-light hover:text-text-main transition-colors hidden sm:block">
             {PHONE}
           </a>
           <a
             href="#consult"
-            className="inline-flex items-center gap-2 px-6 py-2.5 border border-white text-text-main text-sm font-light hover:bg-white hover:border-white group transition-all duration-300"
+            className="inline-flex items-center justify-center gap-2 px-6 py-2.5 max-md:px-5 max-md:h-[52px] max-md:rounded-[16px] border border-white text-text-main text-sm font-light hover:bg-white hover:border-white group transition-all duration-300"
           >
             <span className="group-hover:text-[#0F0F10] transition-colors duration-300">Связаться</span>
           </a>
@@ -187,15 +187,14 @@ function Hero() {
   const scale = useTransform(scrollYProgress, [0, 0.35], [1, 1.02]);
 
   return (
-    <section ref={ref} className="relative min-h-screen flex flex-col justify-end lg:justify-center overflow-hidden" style={{ backgroundColor: '#0F0F10' }}>
-      {/* Изображение: сдвинуто вправо, правая часть может обрезаться */}
-      <motion.div style={{ scale }} className="absolute inset-0">
+    <section ref={ref} className="relative min-h-screen max-md:min-h-0 flex flex-col justify-end lg:justify-center overflow-hidden" style={{ backgroundColor: '#0F0F10' }}>
+      {/* Desktop: полноэкранное изображение */}
+      <motion.div style={{ scale }} className="absolute inset-0 max-md:hidden">
         <img
           src={IMAGES.hero}
           alt=""
           className="absolute inset-0 w-full h-full object-cover object-[22%_50%]"
         />
-        {/* Фон под текстом с прозрачностью; картинка правее */}
         <div
           className="absolute inset-0"
           style={{
@@ -205,10 +204,10 @@ function Hero() {
         <div className="absolute inset-0 bg-black/18" />
       </motion.div>
 
-      {/* Контент */}
+      {/* Desktop контент */}
       <motion.div
         style={{ opacity }}
-        className="relative z-10 px-6 md:px-12 lg:px-16 pb-20 lg:pb-32 pt-[140px] lg:pt-0 max-w-content"
+        className="relative z-10 px-6 md:px-12 lg:px-16 pb-20 lg:pb-32 pt-[140px] lg:pt-0 max-w-content max-md:hidden"
       >
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
@@ -240,6 +239,53 @@ function Hero() {
           <span className="text-text-muted group-hover:text-[#0F0F10] transition-colors duration-150">→</span>
         </motion.a>
       </motion.div>
+
+      {/* Mobile Hero: отдельная композиция */}
+      <div className="md:hidden relative z-10 mobile-container pt-[100px] pb-12">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          className="space-y-6"
+        >
+          {/* Visual container */}
+          <div className="overflow-hidden rounded-[24px] border border-[rgba(255,255,255,0.06)] bg-[#131416] aspect-[4/3] max-h-[280px]">
+            <img
+              src={IMAGES.hero}
+              alt=""
+              className="w-full h-full object-cover object-center opacity-90"
+            />
+          </div>
+
+          {/* Label */}
+          <span
+            className="block font-body text-[12px] uppercase tracking-[0.2em]"
+            style={{ color: '#9A9A9A' }}
+          >
+            Мемориальные комплексы
+          </span>
+
+          {/* Title */}
+          <h1 className="font-heading font-medium text-text-main tracking-[0.02em] leading-[1.15] text-[38px]">
+            <span className="uppercase tracking-wider">Мемориальные комплексы из гранита</span>
+            <span className="block font-light tracking-[-0.01em] normal-case mt-2 text-[22px]">с индивидуальным проектом и установкой под ключ</span>
+          </h1>
+
+          {/* Body */}
+          <p className="font-body font-light text-[17px] leading-[1.5] max-w-[320px]" style={{ color: '#9A9A9A' }}>
+            Полный цикл работ: проект, производство и установка. Персональный менеджер ведёт проект до результата.
+          </p>
+
+          {/* CTA */}
+          <a
+            href="#consult"
+            className="inline-flex items-center justify-center gap-2 h-[54px] px-8 rounded-[16px] border border-white text-text-main text-[15px] font-light tracking-wide transition-colors duration-150 group hover:bg-white hover:border-white"
+          >
+            <span className="group-hover:text-[#0F0F10] transition-colors duration-150">Получить расчёт проекта</span>
+            <span className="text-text-muted group-hover:text-[#0F0F10] transition-colors duration-150">→</span>
+          </a>
+        </motion.div>
+      </div>
     </section>
   );
 }
@@ -338,12 +384,12 @@ function ProcessStepCard({ step, index, onClick }) {
         y: -3,
         transition: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
       }}
-      className="group relative w-full text-left overflow-hidden rounded-2xl border border-[#2A2A2D] bg-[#131416] transition-[border-color,background-color] duration-300 hover:border-[#3a3a3e] hover:bg-[#16171A] cursor-pointer"
+      className="group relative w-full text-left overflow-hidden rounded-2xl border border-[#2A2A2D] bg-[#131416] transition-[border-color,background-color] duration-300 hover:border-[#3a3a3e] hover:bg-[#16171A] cursor-pointer max-md:rounded-[18px] max-md:border-[rgba(255,255,255,0.06)] max-md:bg-[rgba(19,20,22,0.8)] max-md:min-h-0 max-md:py-0"
     >
-      <div className="relative flex items-center gap-8 md:gap-12 lg:gap-16 px-6 md:px-8 lg:px-10 py-5 md:py-6 min-h-[72px] md:min-h-[84px]">
+      <div className="relative flex items-center gap-8 md:gap-12 lg:gap-16 px-6 md:px-8 lg:px-10 py-5 md:py-6 min-h-[72px] md:min-h-[84px] max-md:gap-4 max-md:px-[18px] max-md:py-[18px]">
         {/* Номер этапа — крупный serif, полупрозрачный */}
         <span
-          className="font-heading font-light tabular-nums shrink-0 transition-opacity duration-500 group-hover:opacity-100"
+          className="font-heading font-light tabular-nums shrink-0 transition-opacity duration-500 group-hover:opacity-100 max-md:text-[1.125rem] max-md:opacity-50"
           style={{
             fontSize: 'clamp(2.5rem, 4vw, 3.5rem)',
             color: '#EAEAEA',
@@ -355,7 +401,7 @@ function ProcessStepCard({ step, index, onClick }) {
         </span>
 
         {/* Название этапа */}
-        <span className="flex-1 font-body text-[clamp(1.125rem, 1.25vw, 1.25rem)] font-light text-[#EAEAEA] tracking-wide leading-snug">
+        <span className="flex-1 font-body text-[clamp(1.125rem, 1.25vw, 1.25rem)] font-light text-[#EAEAEA] tracking-wide leading-snug max-md:text-[15px]">
           {step}
         </span>
 
@@ -498,12 +544,12 @@ function BlockMeaning() {
   return (
     <section
       ref={sectionRef}
-      className="relative py-[clamp(6rem,12vh,9rem)] px-6 md:px-12 lg:px-20 overflow-hidden"
+      className="relative py-[clamp(6rem,12vh,9rem)] px-6 md:px-12 lg:px-20 overflow-hidden max-md:py-14 max-md:px-0"
       style={{ backgroundColor: '#0F0F10' }}
     >
-      <div className="max-w-[1520px] mx-auto">
+      <div className="max-w-[1520px] mx-auto max-md:mobile-container">
         {/* Текстовая часть — слева/сверху */}
-        <div className="grid lg:grid-cols-[0.95fr_1.05fr] gap-16 lg:gap-24 items-start mb-16 lg:mb-20">
+        <div className="grid lg:grid-cols-[0.95fr_1.05fr] gap-16 lg:gap-24 items-start mb-16 lg:mb-20 max-md:mb-8 max-md:gap-8">
           <motion.div
             initial={{ opacity: 0, y: 28 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -511,13 +557,13 @@ function BlockMeaning() {
             className="lg:sticky lg:top-[140px] lg:-mt-16"
           >
             <span
-              className="inline-block font-body text-[0.8125rem] uppercase tracking-[0.2em] mb-2"
+              className="inline-block font-body text-[0.8125rem] uppercase tracking-[0.2em] mb-2 max-md:text-[12px] max-md:tracking-[0.18em]"
               style={{ color: '#9A9A9A' }}
             >
               Процесс
             </span>
             <h2
-              className="font-heading font-medium tracking-[-0.02em] mb-6"
+              className="font-heading font-medium tracking-[-0.02em] mb-6 max-md:text-[28px] max-md:leading-[1.2] max-md:mb-4"
               style={{
                 fontSize: 'clamp(2.25rem, 3.5vw, 3.25rem)',
                 lineHeight: 1.12,
@@ -527,7 +573,7 @@ function BlockMeaning() {
               Работаем с проектом, а не с отдельным изделием
             </h2>
             <div
-              className="font-body font-light leading-relaxed max-w-lg space-y-12 text-right ml-auto mt-24"
+              className="font-body font-light leading-relaxed max-w-lg space-y-12 text-right ml-auto mt-24 max-md:mt-0 max-md:text-left max-md:space-y-4 max-md:text-[16px] max-md:leading-[1.5]"
               style={{
                 fontSize: 'clamp(1.0625rem, 1.2vw, 1.25rem)',
                 color: '#9A9A9A',
@@ -535,16 +581,25 @@ function BlockMeaning() {
             >
               <p>Мы не просто изготавливаем памятник.<br />Мы ведём весь проект — от участка до установки.</p>
               <p>Берём на себя подбор материалов, разработку внешнего вида, технические решения и оформление документов.</p>
-              <p>Вы понимаете, как будет выглядеть результат ещё до начала работ и не погружаетесь в сложные детали процесса.</p>
+              <p className="max-md:hidden">Вы понимаете, как будет выглядеть результат ещё до начала работ и не погружаетесь в сложные детали процесса.</p>
             </div>
           </motion.div>
 
           {/* Step cards */}
-          <div className="flex flex-col gap-3 md:gap-4">
+          <div className="flex flex-col gap-3 md:gap-4 max-md:gap-[13px]">
             {PROCESS_STEPS.map((step, i) => (
               <ProcessStepCard key={i} step={step} index={i} onClick={setActiveStep} />
             ))}
           </div>
+
+          {/* Mobile CTA */}
+          <a
+            href="#consult"
+            className="hidden max-md:inline-flex items-center justify-center gap-2 h-[54px] px-8 rounded-[16px] border border-white text-text-main text-[15px] font-light tracking-wide transition-colors mt-6 group hover:bg-white hover:border-white"
+          >
+            <span className="group-hover:text-[#0F0F10] transition-colors">Узнать подробнее</span>
+            <span className="text-text-muted group-hover:text-[#0F0F10] transition-colors">→</span>
+          </a>
         </div>
       </div>
 
@@ -604,11 +659,12 @@ function BlockProject() {
   return (
     <section
       ref={sectionRef}
-      className="relative px-6 md:px-12 lg:px-20"
-      style={{ backgroundColor: '#0F0F10', height: '300vh' }}
+      className="relative px-6 md:px-12 lg:px-20 max-md:px-0 md:min-h-[300vh]"
+      style={{ backgroundColor: '#0F0F10' }}
     >
+      {/* Desktop: sticky layout */}
       <div
-        className="sticky top-0 min-h-screen flex items-center py-20 lg:py-28"
+        className="sticky top-0 min-h-screen flex items-center py-20 lg:py-28 max-md:hidden"
         style={{ paddingTop: 'clamp(5rem, 10vh, 7rem)' }}
       >
         <div className="max-w-[1520px] mx-auto w-full">
@@ -744,6 +800,58 @@ function BlockProject() {
           </div>
         </div>
       </div>
+
+      {/* Mobile: вертикальный статичный layout */}
+      <div className="md:hidden mobile-container py-14">
+        {/* Media container */}
+        <div className="overflow-hidden rounded-[24px] border border-[rgba(255,255,255,0.06)] bg-[#0a0a0b] aspect-[4/3] mb-6">
+          <img
+            src={PROJECT_STEPS[0].image}
+            alt={PROJECT_STEPS[0].title}
+            className="w-full h-full object-contain object-center"
+          />
+        </div>
+
+        <span className="block font-body text-[12px] uppercase tracking-[0.2em] mb-2" style={{ color: '#9A9A9A' }}>
+          Проект
+        </span>
+        <h2 className="font-heading font-medium tracking-[-0.02em] mb-4 text-[28px] leading-[1.2] text-[#EAEAEA]">
+          Сначала проект — потом изготовление
+        </h2>
+        <p className="font-body font-light text-[16px] leading-[1.5] mb-8" style={{ color: '#9A9A9A' }}>
+          До начала работ вы понимаете, как будет выглядеть комплекс и что входит в состав.
+        </p>
+
+        {/* 4 шага — статичный список */}
+        <div className="space-y-1">
+          {PROJECT_STEPS.map((step, i) => (
+            <div
+              key={step.number}
+              className="relative flex items-center gap-4 py-4 pl-5 border-l-2"
+              style={{ marginLeft: '-1px', borderLeftColor: '#2A2A2D' }}
+            >
+              <span className="font-heading text-[0.875rem] tabular-nums shrink-0" style={{ color: '#6A6A6E' }}>
+                {step.number}
+              </span>
+              <span className="font-body font-light text-[15px] tracking-wide" style={{ color: '#EAEAEA' }}>
+                {step.title}
+              </span>
+            </div>
+          ))}
+        </div>
+
+        <p className="font-body font-light text-[15px] leading-[1.5] mt-6" style={{ color: '#C8C8CA' }}>
+          Вы можете заказать только услугу создания проекта. А изготовителя выбрать самостоятельно.
+        </p>
+
+        <a
+          href="#consult"
+          className="inline-flex items-center justify-center gap-2 h-[54px] px-8 mt-6 rounded-[16px] border border-white text-text-main text-[15px] font-light tracking-wide group hover:bg-white hover:border-white transition-colors"
+        >
+          <span className="group-hover:text-[#0F0F10] transition-colors">Заказать проект</span>
+          <span className="text-text-muted group-hover:text-[#0F0F10] transition-colors">→</span>
+        </a>
+      </div>
     </section>
   );
 }
@@ -785,25 +893,25 @@ function BlockProjects() {
   return (
     <section
       ref={sectionRef}
-      className="relative py-[clamp(6rem,12vh,9rem)] px-6 md:px-12 lg:px-20 overflow-hidden"
+      className="relative py-[clamp(6rem,12vh,9rem)] px-6 md:px-12 lg:px-20 overflow-hidden max-md:py-14 max-md:px-0"
       style={{ backgroundColor: '#0F0F10' }}
     >
-      <div className="max-w-[1520px] mx-auto">
+      <div className="max-w-[1520px] mx-auto max-md:mobile-container">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-12 lg:mb-16"
+          className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-12 lg:mb-16 max-md:mb-6 max-md:gap-4 max-md:flex-row max-md:flex-wrap max-md:items-end"
         >
           <div>
             <span
-              className="inline-block font-body text-[0.8125rem] uppercase tracking-[0.2em] mb-2"
+              className="inline-block font-body text-[0.8125rem] uppercase tracking-[0.2em] mb-2 max-md:text-[12px]"
               style={{ color: '#9A9A9A' }}
             >
               Портфолио
             </span>
             <h2
-              className="font-heading font-medium tracking-[-0.02em] mb-3"
+              className="font-heading font-medium tracking-[-0.02em] mb-3 max-md:text-[28px] max-md:mb-2"
               style={{
                 fontSize: 'clamp(2rem, 2.8vw, 2.75rem)',
                 color: '#EAEAEA',
@@ -812,17 +920,17 @@ function BlockProjects() {
               Примеры проектов
             </h2>
             <p
-              className="font-body font-light max-w-lg"
+              className="font-body font-light max-w-lg max-md:text-[16px]"
               style={{ fontSize: '1.0625rem', color: '#9A9A9A' }}
             >
               Каждый комплекс разрабатывается под участок и задачу семьи
             </p>
           </div>
 
-          {/* Навигация */}
-          <div className="flex items-center gap-6">
+          {/* Навигация — на mobile компактная строка */}
+          <div className="flex items-center gap-6 max-md:gap-3 max-md:flex-shrink-0 max-md:justify-between max-md:basis-full max-md:mt-2">
             <span
-              className="font-heading text-[0.9375rem] tabular-nums"
+              className="font-heading text-[0.9375rem] tabular-nums max-md:text-[13px]"
               style={{ color: '#6B6B6B' }}
             >
               {String(slideIndex + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
@@ -831,7 +939,7 @@ function BlockProjects() {
               <button
                 type="button"
                 onClick={goPrev}
-                className="w-12 h-12 flex items-center justify-center rounded-full border border-[#2A2A2D] text-[#9A9A9A] hover:border-[#3a3a3e] hover:text-[#EAEAEA] transition-colors duration-300"
+                className="w-12 h-12 max-md:w-10 max-md:h-10 flex items-center justify-center rounded-full border border-[#2A2A2D] text-[#9A9A9A] hover:border-[#3a3a3e] hover:text-[#EAEAEA] transition-colors duration-300"
                 aria-label="Предыдущий"
               >
                 ←
@@ -839,7 +947,7 @@ function BlockProjects() {
               <button
                 type="button"
                 onClick={goNext}
-                className="w-12 h-12 flex items-center justify-center rounded-full border border-[#2A2A2D] text-[#9A9A9A] hover:border-[#3a3a3e] hover:text-[#EAEAEA] transition-colors duration-300"
+                className="w-12 h-12 max-md:w-10 max-md:h-10 flex items-center justify-center rounded-full border border-[#2A2A2D] text-[#9A9A9A] hover:border-[#3a3a3e] hover:text-[#EAEAEA] transition-colors duration-300"
                 aria-label="Следующий"
               >
                 →
@@ -865,16 +973,16 @@ function BlockProjects() {
               animate="center"
               exit="exit"
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-stretch min-h-[500px] lg:min-h-[560px]"
+              className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-stretch min-h-[500px] lg:min-h-[560px] max-md:min-h-0 max-md:gap-6"
             >
               {/* Левая часть — информация + макет */}
-              <div className="flex flex-col gap-8 order-2 lg:order-1">
-                <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-8 order-2 lg:order-1 max-md:gap-5 max-md:order-2">
+                <div className="flex flex-col gap-4 max-md:gap-3">
                   <motion.p
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    className="font-body font-light text-[1rem] leading-relaxed"
+                    className="font-body font-light text-[1rem] leading-relaxed max-md:text-[15px] max-md:leading-[1.45]"
                     style={{ color: '#9A9A9A' }}
                   >
                     {project.title}
@@ -883,7 +991,7 @@ function BlockProjects() {
                     initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.15, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    className="font-body font-light text-[1rem]"
+                    className="font-body font-light text-[1rem] max-md:text-[14px]"
                     style={{ color: '#9A9A9A' }}
                   >
                     {project.stone} · {project.region}
@@ -892,7 +1000,7 @@ function BlockProjects() {
                     initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    className="font-body font-light text-[1rem] leading-relaxed max-w-md"
+                    className="font-body font-light text-[1rem] leading-relaxed max-w-md max-md:text-[15px] max-md:leading-[1.5]"
                     style={{ color: '#9A9A9A' }}
                   >
                     {project.description}
@@ -927,7 +1035,7 @@ function BlockProjects() {
                 tabIndex={0}
                 onClick={() => setLightboxImage(resultImage)}
                 onKeyDown={(e) => e.key === 'Enter' && setLightboxImage(resultImage)}
-                className="relative order-1 lg:order-2 overflow-hidden rounded-[20px] border border-[#2A2A2D] group/result min-h-[320px] lg:min-h-full cursor-pointer"
+                className="relative order-1 lg:order-2 overflow-hidden rounded-[20px] max-md:rounded-[24px] border border-[#2A2A2D] group/result min-h-[320px] lg:min-h-full max-md:min-h-[260px] max-md:aspect-[4/3] cursor-pointer"
               >
                 <img
                   src={resultImage}
@@ -1002,15 +1110,15 @@ function BlockProduction() {
   return (
     <section
       ref={sectionRef}
-      className="relative py-[clamp(6rem,12vh,9rem)] px-6 md:px-12 lg:px-20 overflow-hidden"
+      className="relative py-[clamp(6rem,12vh,9rem)] px-6 md:px-12 lg:px-20 overflow-hidden max-md:py-14 max-md:px-0"
       style={{ backgroundColor: '#111214' }}
     >
-      <div className="max-w-[1520px] mx-auto group/production">
-        <div className="grid lg:grid-cols-[0.4fr_1fr] gap-16 lg:gap-24 items-end">
-          {/* Текст */}
-          <div className="lg:max-w-md">
+      <div className="max-w-[1520px] mx-auto group/production max-md:mobile-container">
+        <div className="grid lg:grid-cols-[0.4fr_1fr] gap-16 lg:gap-24 items-end max-md:gap-8 max-md:grid-cols-1">
+          {/* Текст — desktop: справа, mobile: сверху */}
+          <div className="lg:max-w-md max-md:order-2">
             <span
-              className="inline-block font-body text-[0.8125rem] uppercase tracking-[0.2em] mb-2"
+              className="inline-block font-body text-[0.8125rem] uppercase tracking-[0.2em] mb-2 max-md:text-[12px]"
               style={{ color: '#9A9A9A' }}
             >
               Производство
@@ -1019,7 +1127,7 @@ function BlockProduction() {
               initial={{ opacity: 0, y: 28 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="font-heading font-medium tracking-[-0.02em] mb-4"
+              className="font-heading font-medium tracking-[-0.02em] mb-4 max-md:text-[28px] max-md:mb-6"
               style={{
                 fontSize: 'clamp(2rem, 2.8vw, 2.75rem)',
                 lineHeight: 1.12,
@@ -1028,7 +1136,8 @@ function BlockProduction() {
             >
               Собственное производство
             </motion.h2>
-            <div className="space-y-0 mt-4 max-w-[500px] ml-auto text-right">
+            {/* Desktop: длинные строки с hover */}
+            <div className="space-y-0 mt-4 max-w-[500px] ml-auto text-right max-md:hidden">
               {PRODUCTION_ACCENTS.map((line, i) => (
                 <motion.div
                   key={i}
@@ -1066,12 +1175,28 @@ function BlockProduction() {
                 </motion.div>
               ))}
             </div>
+            {/* Mobile: компактный стек преимуществ */}
+            <div className="md:hidden space-y-0">
+              {PRODUCTION_ACCENTS.map((line, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.4, delay: 0.1 + i * 0.06, ease: [0.22, 1, 0.36, 1] }}
+                  className="py-4 border-b border-[rgba(255,255,255,0.06)] first:pt-0 last:border-b-0"
+                >
+                  <p className="font-body font-light text-[16px] leading-[1.5]" style={{ color: '#EAEAEA' }}>
+                    {line}
+                  </p>
+                </motion.div>
+              ))}
+            </div>
           </div>
 
-          {/* Видео */}
+          {/* Видео — mobile: сверху */}
           <motion.div
             style={{ scale: videoScale }}
-            className="relative w-full aspect-video lg:aspect-[16/9] overflow-hidden rounded-2xl border border-[#2A2A2D] group/video"
+            className="relative w-full aspect-video lg:aspect-[16/9] overflow-hidden rounded-2xl max-md:rounded-[24px] border border-[#2A2A2D] group/video max-md:order-1"
           >
             <iframe
               src={`https://rutube.ru/play/embed/${RUTUBE_VIDEO_ID}/?muted=1&autoPlay=1&skinColor=EAEAEA`}
@@ -1122,7 +1247,7 @@ function BlockMaterials() {
   return (
     <section
       ref={ref}
-      className="py-section lg:py-section-lg px-6 md:px-12 lg:px-16"
+      className="py-section lg:py-section-lg px-6 md:px-12 lg:px-16 max-md:py-14 max-md:mobile-container"
       style={{ backgroundColor: '#0F0F10' }}
     >
       <div className="max-w-[1320px] mx-auto">
@@ -1331,7 +1456,7 @@ function BlockReadyWorks() {
   return (
     <section
       ref={ref}
-      className="py-[7.5rem] px-6 md:px-12 lg:px-20"
+      className="py-[7.5rem] px-6 md:px-12 lg:px-20 max-md:py-14 max-md:mobile-container"
       style={{ backgroundColor: '#0F0F10' }}
     >
       <div className="max-w-[1520px] mx-auto">
@@ -1405,7 +1530,7 @@ function BlockReadyWorks() {
               onClick={openLightbox}
               onMouseEnter={() => setHovered(true)}
               onMouseLeave={() => setHovered(false)}
-              className="relative flex-shrink-0 w-full max-w-[min(1100px,90vw)] h-[clamp(340px,40vw,600px)] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-4 focus-visible:ring-offset-[#0F0F10] rounded-[28px] overflow-hidden"
+              className="relative flex-shrink-0 w-full max-w-[min(1100px,90vw)] h-[clamp(340px,40vw,600px)] max-md:h-[300px] max-md:rounded-[24px] focus:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-4 focus-visible:ring-offset-[#0F0F10] rounded-[28px] overflow-hidden"
               animate={{
                 scale: hovered ? 1.02 : 1,
                 boxShadow: hovered
@@ -1614,37 +1739,37 @@ function BlockTrust() {
   return (
     <section
       ref={ref}
-      className="py-section lg:py-[clamp(5rem,10vh,7rem)] px-6 md:px-12 lg:px-20"
+      className="py-section lg:py-[clamp(5rem,10vh,7rem)] px-6 md:px-12 lg:px-20 max-md:py-14 max-md:px-0"
       style={{ backgroundColor: '#0F0F10' }}
     >
-      <div className="max-w-[1520px] mx-auto">
+      <div className="max-w-[1520px] mx-auto max-md:mobile-container">
         {/* Label и заголовок */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-8 lg:mb-10"
+          className="mb-8 lg:mb-10 max-md:mb-6"
         >
           <span
-            className="inline-block font-body text-[0.75rem] uppercase tracking-[0.22em] mb-3"
+            className="inline-block font-body text-[0.75rem] uppercase tracking-[0.22em] mb-3 max-md:text-[12px]"
             style={{ color: '#8A8A8A' }}
           >
             Доверие
           </span>
           <h2
-            className="font-heading font-medium tracking-[-0.02em] text-[#EAEAEA]"
+            className="font-heading font-medium tracking-[-0.02em] text-[#EAEAEA] max-md:text-[28px] max-md:leading-[1.2]"
             style={{ fontSize: 'clamp(2rem, 2.8vw, 2.75rem)', lineHeight: 1.15 }}
           >
             Почему нам доверяют сложные проекты
           </h2>
         </motion.div>
 
-        {/* Горизонтальная лента из 5 сегментов */}
+        {/* Desktop: горизонтальная лента */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-nowrap overflow-x-auto overflow-y-hidden rounded-[24px] border border-[#2A2A2D] lg:overflow-hidden scrollbar-hide"
+          className="hidden md:flex flex-nowrap overflow-x-auto overflow-y-hidden rounded-[24px] border border-[#2A2A2D] lg:overflow-hidden scrollbar-hide"
           style={{ backgroundColor: '#141518' }}
         >
           {TRUST_SEGMENTS.map((item, i) => {
@@ -1713,6 +1838,30 @@ function BlockTrust() {
             );
           })}
         </motion.div>
+
+        {/* Mobile: вертикальный стек из 5 карточек */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
+          className="md:hidden flex flex-col gap-3"
+        >
+          {TRUST_SEGMENTS.map((item, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 12 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.4, delay: 0.08 + i * 0.05, ease: [0.22, 1, 0.36, 1] }}
+              className="rounded-[18px] border border-[rgba(255,255,255,0.06)] p-[18px]"
+              style={{ backgroundColor: 'rgba(20,21,24,0.8)' }}
+            >
+              <p className="font-body font-medium text-[16px] text-[#EAEAEA] mb-1.5">{item.title}</p>
+              <p className="font-body font-light text-[14px] leading-[1.5]" style={{ color: '#8A8A8A' }}>
+                {item.description}
+              </p>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );
@@ -1741,29 +1890,68 @@ function BlockFinal() {
     <section
       ref={ref}
       id="consult"
-      className="py-[clamp(4rem,8vh,6rem)] px-6 md:px-12 lg:px-20 bg-bg-main"
+      className="py-[clamp(4rem,8vh,6rem)] px-6 md:px-12 lg:px-20 bg-bg-main max-md:py-12 max-md:px-5"
     >
       <motion.div
         initial="hidden"
         animate={isInView ? 'visible' : 'hidden'}
         variants={containerVariants}
-        className="max-w-[1520px] mx-auto rounded-[24px] p-8 md:p-10 lg:p-12"
+        className="max-w-[1520px] mx-auto rounded-[24px] p-8 md:p-10 lg:p-12 max-md:rounded-[24px] max-md:p-6"
         style={{
           backgroundColor: '#121317',
           border: '1px solid rgba(255,255,255,0.06)',
         }}
       >
-        <div className="grid lg:grid-cols-[0.55fr_1fr] lg:gap-12 xl:gap-16 items-center">
+        <div className="grid lg:grid-cols-[0.55fr_1fr] lg:gap-12 xl:gap-16 items-center max-md:grid-cols-1 max-md:gap-8">
           {/* ЛЕВАЯ КОЛОНКА */}
-          <div className="space-y-6 min-w-0">
+          <div className="space-y-6 min-w-0 max-md:space-y-5">
+            {/* Mobile: label + short text */}
+            <span className="hidden max-md:block font-body text-[12px] uppercase tracking-[0.18em] mb-1" style={{ color: '#8A8A8A' }}>
+              Обратная связь
+            </span>
             <motion.h2
               variants={itemVariants}
               transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="font-heading font-medium tracking-[-0.02em]"
+              className="font-heading font-medium tracking-[-0.02em] max-md:text-[28px]"
               style={{ color: '#EAEAEA', fontSize: 'clamp(1.5rem, 2.2vw, 2.25rem)', lineHeight: 1.15 }}
             >
               Наши контакты
             </motion.h2>
+
+            {/* Mobile: короткий текст */}
+            <p className="hidden max-md:block font-body font-light text-[16px] leading-[1.5] -mt-2" style={{ color: '#9A9A9A' }}>
+              Оставьте заявку — перезвоним в удобное время
+            </p>
+
+            {/* Mobile: форма */}
+            <form
+              action="#consult"
+              method="get"
+              className="hidden max-md:block space-y-3"
+              onSubmit={(e) => e.preventDefault()}
+            >
+              <input
+                type="text"
+                name="name"
+                placeholder="Имя"
+                className="w-full h-[52px] px-4 rounded-[14px] border border-[rgba(255,255,255,0.1)] bg-[rgba(255,255,255,0.03)] font-body text-[15px] text-[#EAEAEA] placeholder-[#6A6A6E] focus:outline-none focus:border-[rgba(255,255,255,0.2)]"
+                aria-label="Имя"
+              />
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Телефон"
+                className="w-full h-[52px] px-4 rounded-[14px] border border-[rgba(255,255,255,0.1)] bg-[rgba(255,255,255,0.03)] font-body text-[15px] text-[#EAEAEA] placeholder-[#6A6A6E] focus:outline-none focus:border-[rgba(255,255,255,0.2)]"
+                aria-label="Телефон"
+              />
+              <a
+                href="#consult"
+                className="inline-flex items-center justify-center w-full h-[54px] rounded-[16px] border border-white text-text-main text-[15px] font-light tracking-wide group hover:bg-white hover:border-white transition-colors"
+              >
+                <span className="group-hover:text-[#0F0F10] transition-colors">Отправить заявку</span>
+                <span className="ml-2 text-text-muted group-hover:text-[#0F0F10] transition-colors">→</span>
+              </a>
+            </form>
 
             {/* Плашка мессенджеров */}
             <motion.div
@@ -1808,7 +1996,7 @@ function BlockFinal() {
             <motion.div
               variants={itemVariants}
               transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="grid grid-cols-2 gap-x-6 gap-y-4"
+              className="grid grid-cols-2 gap-x-6 gap-y-4 max-md:grid-cols-1 max-md:gap-y-3 max-md:text-[15px]"
             >
               <div>
                 <p className="font-body text-xs font-medium uppercase tracking-wider mb-1" style={{ color: '#EAEAEA' }}>Офис</p>
@@ -1833,11 +2021,11 @@ function BlockFinal() {
             </motion.div>
           </div>
 
-          {/* ПРАВАЯ КОЛОНКА — карта */}
+          {/* ПРАВАЯ КОЛОНКА — карта (на mobile ниже, уменьшенная) */}
           <motion.div
             variants={itemVariants}
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className="relative overflow-hidden rounded-[20px] h-[240px] lg:h-[280px] border border-[#2A2A2D]/60"
+            className="relative overflow-hidden rounded-[20px] max-md:rounded-[24px] h-[240px] lg:h-[280px] max-md:h-[200px] border border-[#2A2A2D]/60 max-md:order-last"
           >
             <iframe
               src={CONTACTS.mapUrl}
@@ -1871,13 +2059,13 @@ function Footer() {
       className="border-t border-[#2A2A2D]"
       style={{ backgroundColor: '#0B0B0C' }}
     >
-      <div className="max-w-[1520px] mx-auto px-6 md:px-12 lg:px-20 py-12 lg:py-16">
+      <div className="max-w-[1520px] mx-auto px-6 md:px-12 lg:px-20 py-12 lg:py-16 max-md:px-5 max-md:py-10">
         {/* Верхняя строка */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-12 lg:mb-14"
+          className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-12 lg:mb-14 max-md:mb-8 max-md:gap-4"
         >
           <span className="font-heading text-[1.125rem] font-medium tracking-wide" style={{ color: '#EAEAEA' }}>
             StellaPremium
@@ -1901,12 +2089,12 @@ function Footer() {
           </div>
         </motion.div>
 
-        {/* Центральная зона */}
+        {/* Центральная зона — скрыта на mobile */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.5, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-wrap items-center gap-x-4 gap-y-2 mb-10 lg:mb-12 font-body text-sm font-light"
+          className="hidden md:flex flex-wrap items-center gap-x-4 gap-y-2 mb-10 lg:mb-12 font-body text-sm font-light"
           style={{ color: '#8A8A8A' }}
         >
           <span>Работаем с 1999 года</span>
