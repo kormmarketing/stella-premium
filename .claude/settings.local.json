@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Claude_Preview__preview_start",
+      "Bash(where npm:*)",
+      "Bash(curl -s http://localhost:5174)",
+      "Bash(node \"/c/Users/1/Desktop/stella-landing/node_modules/vite/bin/vite.js\" --version)",
+      "Bash(netstat -ano)",
+      "Bash(findstr \":517\")",
+      "Bash(xargs -I{} taskkill /PID {} /F)",
+      "Bash(for pid:*)",
+      "Bash(do taskkill:*)",
+      "Bash(done)"
+    ]
+  }
+}

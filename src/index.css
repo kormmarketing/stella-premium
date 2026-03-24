@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    position: relative;
+  }
+  body {
+    @apply font-body text-text-main bg-bg-main antialiased;
+    font-feature-settings: 'ss01' 1, 'cv02' 1;
+    position: relative;
+  }
+  #root {
+    position: relative;
+    min-height: 100%;
+  }
+  p {
+    @apply tracking-wide;
+  }
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
