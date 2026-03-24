@@ -246,10 +246,10 @@ function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="space-y-5 flex flex-col items-center w-full max-w-[340px] mx-auto"
+          className="space-y-5 flex flex-col items-center w-full"
         >
-          {/* Media container — центрирован */}
-          <div className="overflow-hidden rounded-[24px] border border-[rgba(255,255,255,0.06)] bg-[#131416] h-[260px] max-h-[280px] w-full">
+          {/* Media container — без фона, центрирован */}
+          <div className="overflow-hidden rounded-[24px] border border-[rgba(255,255,255,0.06)] h-[260px] max-h-[280px] w-full">
             <img
               src={IMAGES.hero}
               alt=""
@@ -265,21 +265,21 @@ function Hero() {
             Мемориальные комплексы
           </span>
 
-          {/* Title — центрирован */}
-          <h1 className="font-heading font-medium text-text-main tracking-[0.02em] leading-[1.12] text-[36px] max-w-[90%]">
+          {/* Title — центрирован, полная ширина контейнера */}
+          <h1 className="font-heading font-medium text-text-main tracking-[0.02em] leading-[1.12] text-[34px] sm:text-[38px] w-full">
             <span className="uppercase tracking-wider">Мемориальные комплексы из гранита</span>
-            <span className="block font-light tracking-[-0.01em] normal-case mt-1.5 text-[20px] leading-[1.3]">с индивидуальным проектом и установкой под ключ</span>
+            <span className="block font-light tracking-[-0.01em] normal-case mt-1.5 text-[18px] sm:text-[20px] leading-[1.3]">с индивидуальным проектом и установкой под ключ</span>
           </h1>
 
-          {/* Supporting text — центрирован */}
-          <p className="font-body font-light text-[16px] leading-[1.55] max-w-[90%]" style={{ color: '#9A9A9A' }}>
+          {/* Supporting text — центрирован, полная ширина */}
+          <p className="font-body font-light text-[16px] leading-[1.55] w-full" style={{ color: '#9A9A9A' }}>
             Полный цикл работ: проект, производство и установка. Персональный менеджер ведёт проект до результата.
           </p>
 
-          {/* CTA — центрирован, ограниченная ширина */}
+          {/* CTA — центрирован */}
           <a
             href="#consult"
-            className="inline-flex items-center justify-center gap-2 h-[54px] min-w-[200px] max-w-[280px] px-8 mt-5 rounded-[16px] border border-white text-text-main text-[15px] font-light tracking-wide transition-colors duration-150 group hover:bg-white hover:border-white"
+            className="inline-flex items-center justify-center gap-2 h-[54px] min-w-[200px] px-8 mt-5 rounded-[16px] border border-white text-text-main text-[15px] font-light tracking-wide transition-colors duration-150 group hover:bg-white hover:border-white"
           >
             <span className="group-hover:text-[#0F0F10] transition-colors duration-150">Получить расчёт проекта</span>
             <span className="text-text-muted group-hover:text-[#0F0F10] transition-colors duration-150">→</span>
@@ -548,8 +548,8 @@ function BlockMeaning() {
       style={{ backgroundColor: '#0F0F10' }}
     >
       <div className="max-w-[1520px] mx-auto max-md:mobile-container max-md:flex max-md:flex-col max-md:items-center max-md:text-center">
-        {/* Текстовая часть — mobile: центрирована */}
-        <div className="grid lg:grid-cols-[0.95fr_1.05fr] gap-16 lg:gap-24 items-start mb-16 lg:mb-20 max-md:mb-6 max-md:gap-6 max-md:block max-md:w-full max-md:max-w-[360px] max-md:mx-auto">
+        {/* Текстовая часть — mobile: центрирована, полная ширина */}
+        <div className="grid lg:grid-cols-[0.95fr_1.05fr] gap-16 lg:gap-24 items-start mb-16 lg:mb-20 max-md:mb-6 max-md:gap-6 max-md:block max-md:w-full max-md:mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 28 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -564,7 +564,7 @@ function BlockMeaning() {
               Процесс
             </span>
             <h2
-              className="font-heading font-medium tracking-[-0.02em] mb-6 max-md:text-[30px] max-md:leading-[1.2] max-md:mb-3 max-md:max-w-[90%] max-md:mx-auto"
+              className="font-heading font-medium tracking-[-0.02em] mb-6 max-md:text-[30px] max-md:leading-[1.2] max-md:mb-3 max-md:w-full max-md:mx-auto"
               style={{
                 fontSize: 'clamp(2.25rem, 3.5vw, 3.25rem)',
                 lineHeight: 1.12,
@@ -587,8 +587,8 @@ function BlockMeaning() {
             </div>
           </motion.div>
 
-          {/* Step cards — mobile: центрированы, max-width */}
-          <div className="flex flex-col gap-3 md:gap-4 max-md:gap-3 max-md:mt-5 max-md:w-full max-md:max-w-[360px] max-md:mx-auto">
+          {/* Step cards — mobile: центрированы */}
+          <div className="flex flex-col gap-3 md:gap-4 max-md:gap-3 max-md:mt-5 max-md:w-full max-md:mx-auto">
             {PROCESS_STEPS.map((step, i) => (
               <ProcessStepCard key={i} step={step} index={i} onClick={setActiveStep} />
             ))}
@@ -641,6 +641,7 @@ function BlockMeaning() {
 function BlockProject() {
   const sectionRef = useRef(null);
   const [activeStep, setActiveStep] = useState(0);
+  const [mobileActiveStep, setMobileActiveStep] = useState(0);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -803,53 +804,76 @@ function BlockProject() {
         </div>
       </div>
 
-      {/* Mobile: premium infographic block — label, title, 4 шага 2x2, visual, text, CTA */}
+      {/* Mobile: premium infographic block — tap-based step switcher */}
       <div className="md:hidden mobile-container py-[56px] flex flex-col items-center text-center">
-        <div className="w-full max-w-[360px] mx-auto space-y-5">
+        <div className="w-full space-y-5">
           {/* Label */}
           <span className="block font-body text-[12px] uppercase tracking-[0.15em] opacity-60" style={{ color: '#9A9A9A' }}>
             Проект
           </span>
 
           {/* Title */}
-          <h2 className="font-heading font-medium tracking-[-0.02em] text-[30px] leading-[1.2] text-[#EAEAEA]">
+          <h2 className="font-heading font-medium tracking-[-0.02em] text-[30px] leading-[1.2] text-[#EAEAEA] w-full">
             Сначала проект — потом изготовление
           </h2>
 
           {/* Short text */}
-          <p className="font-body font-light text-[16px] leading-[1.55]" style={{ color: '#9A9A9A' }}>
+          <p className="font-body font-light text-[16px] leading-[1.55] w-full" style={{ color: '#9A9A9A' }}>
             До начала работ вы понимаете, как будет выглядеть комплекс и что входит в состав.
           </p>
 
-          {/* 4 этапа — 2x2 infographic grid */}
+          {/* 4 этапа — 2x2 infographic grid, интерактивные */}
           <div className="grid grid-cols-2 gap-3 mt-6">
-            {PROJECT_STEPS.map((step) => (
-              <div
-                key={step.number}
-                className="rounded-[18px] border border-[rgba(255,255,255,0.06)] p-4 text-left"
-                style={{ backgroundColor: 'rgba(19,20,22,0.6)' }}
-              >
-                <span className="font-heading text-[13px] tabular-nums block mb-1" style={{ color: 'rgba(234,234,234,0.5)' }}>
-                  {step.number}
-                </span>
-                <span className="font-body font-light text-[15px] leading-[1.35] tracking-wide" style={{ color: '#EAEAEA' }}>
-                  {step.title}
-                </span>
-              </div>
-            ))}
+            {PROJECT_STEPS.map((step, i) => {
+              const isActive = mobileActiveStep === i;
+              return (
+                <button
+                  key={step.number}
+                  type="button"
+                  onClick={() => setMobileActiveStep(i)}
+                  className={`rounded-[18px] border p-4 text-left transition-all duration-300 ${
+                    isActive
+                      ? 'border-[rgba(255,255,255,0.2)] bg-[rgba(30,31,34,0.8)] shadow-[0_0_20px_rgba(255,255,255,0.04)]'
+                      : 'border-[rgba(255,255,255,0.06)] bg-[rgba(19,20,22,0.6)]'
+                  }`}
+                >
+                  <span
+                    className={`font-heading text-[13px] tabular-nums block mb-1 transition-colors ${
+                      isActive ? 'text-[rgba(234,234,234,0.9)]' : 'text-[rgba(234,234,234,0.5)]'
+                    }`}
+                  >
+                    {step.number}
+                  </span>
+                  <span
+                    className={`font-body font-light text-[15px] leading-[1.35] tracking-wide block transition-colors ${
+                      isActive ? 'text-[#EAEAEA]' : 'text-[#B0B0B4]'
+                    }`}
+                  >
+                    {step.title}
+                  </span>
+                </button>
+              );
+            })}
           </div>
 
-          {/* Один visual block */}
-          <div className="overflow-hidden rounded-[24px] border border-[rgba(255,255,255,0.06)] bg-[#0a0a0b] h-[200px] mt-6">
-            <img
-              src={PROJECT_STEPS[3].image}
-              alt="Итоговый проект"
-              className="w-full h-full object-contain object-center"
-            />
+          {/* Visual block — меняется при тапе на этап */}
+          <div className="overflow-hidden rounded-[24px] border border-[rgba(255,255,255,0.06)] h-[240px] mt-6">
+            <AnimatePresence mode="wait">
+              <motion.img
+                key={PROJECT_STEPS[mobileActiveStep].image}
+                src={PROJECT_STEPS[mobileActiveStep].image}
+                alt={PROJECT_STEPS[mobileActiveStep].title}
+                initial={{ opacity: 0, scale: 1.02 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.98 }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                className="w-full h-full object-contain object-center"
+              />
+            </AnimatePresence>
           </div>
 
           {/* Short поясняющий текст */}
-          <p className="font-body font-light text-[15px] leading-[1.55]" style={{ color: '#C8C8CA' }}>
+          <p className="font-body font-light text-[15px] leading-[1.55] w-full" style={{ color: '#C8C8CA' }}>
             Вы можете заказать только услугу создания проекта. А изготовителя выбрать самостоятельно.
           </p>
 
@@ -857,10 +881,10 @@ function BlockProject() {
           <div className="flex justify-center mt-5">
             <a
               href="#consult"
-              className="inline-flex items-center justify-center gap-2 h-[54px] min-w-[180px] max-w-[280px] px-8 rounded-[16px] border border-white text-text-main text-[15px] font-light tracking-wide group hover:bg-white hover:border-white transition-colors"
+              className="inline-flex items-center justify-center gap-2 h-[54px] min-w-[180px] px-8 rounded-[16px] border border-white text-text-main text-[15px] font-light tracking-wide group hover:bg-white hover:border-white transition-colors"
             >
-            <span className="group-hover:text-[#0F0F10] transition-colors">Заказать проект</span>
-            <span className="text-text-muted group-hover:text-[#0F0F10] transition-colors">→</span>
+              <span className="group-hover:text-[#0F0F10] transition-colors">Заказать проект</span>
+              <span className="text-text-muted group-hover:text-[#0F0F10] transition-colors">→</span>
             </a>
           </div>
         </div>
@@ -914,7 +938,7 @@ function BlockProjects() {
           initial={{ opacity: 0, y: 24 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-12 lg:mb-16 max-md:mb-6 max-md:gap-4 max-md:flex-col max-md:items-center max-md:w-full max-md:max-w-[360px] max-md:mx-auto"
+          className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-12 lg:mb-16 max-md:mb-6 max-md:gap-4 max-md:flex-col max-md:items-center max-md:w-full max-md:mx-auto"
         >
           <div className="max-md:w-full">
             <span
@@ -933,7 +957,7 @@ function BlockProjects() {
               Примеры проектов
             </h2>
             <p
-              className="font-body font-light max-w-lg max-md:text-[16px] max-md:mx-auto"
+              className="font-body font-light max-w-lg max-md:text-[16px] max-md:w-full"
               style={{ fontSize: '1.0625rem', color: '#9A9A9A' }}
             >
               Каждый комплекс разрабатывается под участок и задачу семьи
@@ -986,60 +1010,10 @@ function BlockProjects() {
               animate="center"
               exit="exit"
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-stretch min-h-[500px] lg:min-h-[560px] max-md:min-h-0 max-md:gap-6"
+              className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-stretch min-h-[500px] lg:min-h-[560px] max-md:min-h-0 max-md:gap-6 max-md:flex max-md:flex-col max-md:items-center"
             >
-              {/* Левая часть — информация + макет, mobile: центрирован */}
-              <div className="flex flex-col gap-8 order-2 lg:order-1 max-md:gap-5 max-md:order-2 max-md:items-center max-md:text-center">
-                <div className="flex flex-col gap-4 max-md:gap-3 max-md:items-center max-md:max-w-[340px]">
-                  <motion.p
-                    initial={{ opacity: 0, y: 16 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    className="font-body font-light text-[1rem] leading-relaxed max-md:text-[18px] max-md:leading-[1.35] max-md:font-medium"
-                    style={{ color: '#9A9A9A' }}
-                  >
-                    {project.title}
-                  </motion.p>
-                  <motion.p
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.15, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    className="font-body font-light text-[1rem] max-md:text-[15px]"
-                    style={{ color: '#9A9A9A' }}
-                  >
-                    {project.stone} · {project.region}
-                  </motion.p>
-                  <motion.p
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    className="font-body font-light text-[1rem] leading-relaxed max-w-md max-md:text-[15px] max-md:leading-[1.5] max-md:max-w-[90%]"
-                    style={{ color: '#9A9A9A' }}
-                  >
-                    {project.description}
-                  </motion.p>
-                </div>
-
-                {/* Макет */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.25, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                  role="button"
-                  tabIndex={0}
-                  onClick={() => setLightboxImage(mockupImage)}
-                  onKeyDown={(e) => e.key === 'Enter' && setLightboxImage(mockupImage)}
-                  className="flex-1 min-h-[240px] overflow-hidden rounded-2xl border border-[#2A2A2D] group/mockup cursor-pointer"
-                >
-                  <img
-                    src={mockupImage}
-                    alt="Макет проекта"
-                    className="w-full h-full object-contain object-center bg-[#0a0a0b] transition-transform duration-500 group-hover/mockup:scale-[1.02]"
-                  />
-                </motion.div>
-              </div>
-
-              {/* Правая часть — результат */}
+              {/* Mobile: главный визуал первым (готовый комплекс), затем текст, затем макет */}
+              {/* Правая часть — результат (главный на mobile) */}
               <motion.div
                 initial={{ opacity: 0, scale: 1.05 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -1048,7 +1022,7 @@ function BlockProjects() {
                 tabIndex={0}
                 onClick={() => setLightboxImage(resultImage)}
                 onKeyDown={(e) => e.key === 'Enter' && setLightboxImage(resultImage)}
-                className="relative order-1 lg:order-2 overflow-hidden rounded-[20px] max-md:rounded-[24px] border border-[#2A2A2D] group/result min-h-[320px] lg:min-h-full max-md:min-h-[220px] max-md:h-[260px] cursor-pointer"
+                className="relative order-1 lg:order-2 overflow-hidden rounded-[20px] max-md:rounded-[24px] border border-[#2A2A2D] group/result min-h-[320px] lg:min-h-full max-md:min-h-[240px] max-md:h-[260px] max-md:w-full cursor-pointer"
               >
                 <img
                   src={resultImage}
@@ -1056,6 +1030,62 @@ function BlockProjects() {
                   className="absolute inset-0 w-full h-full object-cover object-center max-md:object-contain transition-transform duration-500 group-hover/result:scale-[1.03]"
                 />
               </motion.div>
+
+              {/* Левая часть — текст + макет (mobile: текст потом макет вторичный) */}
+              <div className="flex flex-col gap-8 order-2 lg:order-1 max-md:gap-5 max-md:order-2 max-md:items-center max-md:text-center max-md:w-full">
+                <div className="flex flex-col gap-4 max-md:gap-3 max-md:items-center max-md:w-full">
+                  <motion.p
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                    className="font-body font-light text-[1rem] leading-relaxed max-md:text-[17px] max-md:leading-[1.4] max-md:font-medium max-md:w-full"
+                    style={{ color: '#9A9A9A' }}
+                  >
+                    {project.title}
+                  </motion.p>
+                  <motion.p
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.15, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                    className="font-body font-light text-[1rem] max-md:text-[15px] max-md:w-full"
+                    style={{ color: '#9A9A9A' }}
+                  >
+                    {project.stone} · {project.region}
+                  </motion.p>
+                  <motion.p
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                    className="font-body font-light text-[1rem] leading-relaxed max-w-md max-md:text-[15px] max-md:leading-[1.5] max-md:max-w-none max-md:w-full"
+                    style={{ color: '#9A9A9A' }}
+                  >
+                    {project.description}
+                  </motion.p>
+                </div>
+
+                {/* Макет — вторичный визуал на mobile, меньше */}
+                <div className="max-md:w-full max-md:flex max-md:flex-col max-md:items-center">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.25, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => setLightboxImage(mockupImage)}
+                    onKeyDown={(e) => e.key === 'Enter' && setLightboxImage(mockupImage)}
+                    className="flex-1 min-h-[240px] overflow-hidden rounded-2xl border border-[#2A2A2D] group/mockup cursor-pointer max-md:min-h-[160px] max-md:h-[180px] max-md:w-full max-md:rounded-[22px]"
+                  >
+                    <img
+                      src={mockupImage}
+                      alt="Макет проекта"
+                      className="w-full h-full object-contain object-center transition-transform duration-500 group-hover/mockup:scale-[1.02]"
+                    />
+                  </motion.div>
+                  <span className="hidden max-md:block mt-2 font-body text-[13px] font-light" style={{ color: '#6A6A6E' }}>
+                    Скетч / макет проекта
+                  </span>
+                </div>
+              </div>
             </motion.div>
           </AnimatePresence>
         </motion.div>
@@ -1134,7 +1164,7 @@ function BlockProduction() {
       style={{ backgroundColor: '#111214' }}
     >
       <div className="max-w-[1520px] mx-auto group/production max-md:mobile-container max-md:flex max-md:flex-col max-md:items-center max-md:text-center">
-        <div className="grid lg:grid-cols-[0.4fr_1fr] gap-16 lg:gap-24 items-end max-md:gap-8 max-md:grid-cols-1 max-md:w-full max-md:max-w-[360px] max-md:mx-auto">
+        <div className="grid lg:grid-cols-[0.4fr_1fr] gap-16 lg:gap-24 items-end max-md:gap-8 max-md:grid-cols-1 max-md:w-full max-md:mx-auto">
           {/* Текст — desktop: справа, mobile: центрирован */}
           <div className="lg:max-w-md max-md:order-2 max-md:w-full">
             <span
@@ -1147,7 +1177,7 @@ function BlockProduction() {
               initial={{ opacity: 0, y: 28 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="font-heading font-medium tracking-[-0.02em] mb-4 max-md:text-[30px] max-md:mb-4 max-md:max-w-[90%]"
+              className="font-heading font-medium tracking-[-0.02em] mb-4 max-md:text-[30px] max-md:mb-4 max-md:w-full"
               style={{
                 fontSize: 'clamp(2rem, 2.8vw, 2.75rem)',
                 lineHeight: 1.12,
@@ -1157,7 +1187,7 @@ function BlockProduction() {
               Собственное производство
             </motion.h2>
             {/* Mobile: короткий вводный текст */}
-            <p className="md:hidden font-body font-light text-[16px] leading-[1.55] mb-5 max-w-[90%] mx-auto" style={{ color: '#9A9A9A' }}>
+            <p className="md:hidden font-body font-light text-[16px] leading-[1.55] mb-5 w-full" style={{ color: '#9A9A9A' }}>
               Полный контроль над качеством и сроками на каждом этапе.
             </p>
             {/* Desktop: длинные строки с hover */}
@@ -1294,7 +1324,7 @@ function BlockMaterials() {
           >
             Виды гранита
           </h2>
-          <p className="text-lead font-light max-w-xl max-md:mx-auto" style={{ color: '#9A9A9A' }}>
+          <p className="text-lead font-light max-w-xl max-md:w-full" style={{ color: '#9A9A9A' }}>
             Натуральные камни, с которыми мы работаем
           </p>
         </motion.div>
@@ -1489,7 +1519,7 @@ function BlockReadyWorks() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, ease: easeSoft }}
-          className="mb-12 lg:mb-14 max-md:mb-8 max-md:w-full max-md:max-w-[360px] max-md:mx-auto"
+          className="mb-12 lg:mb-14 max-md:mb-8 max-md:w-full max-md:mx-auto"
         >
           <span
             className="inline-block font-body text-[0.75rem] uppercase tracking-[0.22em] mb-3 max-md:opacity-60"
@@ -1504,7 +1534,7 @@ function BlockReadyWorks() {
             Готовые работы
           </h2>
           <p
-            className="font-body font-light max-w-xl max-md:mx-auto"
+            className="font-body font-light max-w-xl max-md:w-full"
             style={{ fontSize: 'clamp(0.9375rem, 1.1vw, 1.0625rem)', color: '#9A9A9A' }}
           >
             Реализованные мемориальные комплексы и благоустройство
@@ -1772,7 +1802,7 @@ function BlockTrust() {
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-8 lg:mb-10 max-md:mb-6 max-md:w-full max-md:max-w-[360px] max-md:mx-auto"
+          className="mb-8 lg:mb-10 max-md:mb-6 max-md:w-full max-md:mx-auto"
         >
           <span
             className="inline-block font-body text-[0.75rem] uppercase tracking-[0.22em] mb-3 max-md:text-[12px] max-md:opacity-60"
@@ -1781,7 +1811,7 @@ function BlockTrust() {
             Доверие
           </span>
           <h2
-            className="font-heading font-medium tracking-[-0.02em] text-[#EAEAEA] max-md:text-[28px] max-md:leading-[1.2]"
+            className="font-heading font-medium tracking-[-0.02em] text-[#EAEAEA] max-md:text-[28px] max-md:leading-[1.2] max-md:w-full"
             style={{ fontSize: 'clamp(2rem, 2.8vw, 2.75rem)', lineHeight: 1.15 }}
           >
             Почему нам доверяют сложные проекты
@@ -1863,12 +1893,12 @@ function BlockTrust() {
           })}
         </motion.div>
 
-        {/* Mobile: вертикальный стек из 5 карточек — центрированы */}
+        {/* Mobile: вертикальный стек из 5 карточек */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
-          className="md:hidden flex flex-col gap-3 w-full max-w-[360px] mx-auto"
+          className="md:hidden flex flex-col gap-3 w-full"
         >
           {TRUST_SEGMENTS.map((item, i) => (
             <motion.div
@@ -1928,7 +1958,7 @@ function BlockFinal() {
       >
         <div className="grid lg:grid-cols-[0.55fr_1fr] lg:gap-12 xl:gap-16 items-center max-md:grid-cols-1 max-md:gap-8 max-md:flex max-md:flex-col max-md:items-center max-md:text-center">
           {/* ЛЕВАЯ КОЛОНКА — mobile: центрирована */}
-          <div className="space-y-6 min-w-0 max-md:space-y-5 max-md:w-full max-md:max-w-[360px] max-md:flex max-md:flex-col max-md:items-center">
+          <div className="space-y-6 min-w-0 max-md:space-y-5 max-md:w-full max-md:flex max-md:flex-col max-md:items-center">
             {/* Mobile: label + short text */}
             <span className="hidden max-md:block font-body text-[12px] uppercase tracking-[0.15em] mb-1 opacity-60" style={{ color: '#8A8A8A' }}>
               Обратная связь
@@ -1951,7 +1981,7 @@ function BlockFinal() {
             <form
               action="#consult"
               method="get"
-              className="hidden max-md:block space-y-3 w-full max-w-[320px]"
+              className="hidden max-md:block space-y-3 w-full"
               onSubmit={(e) => e.preventDefault()}
             >
               <input
@@ -1981,7 +2011,7 @@ function BlockFinal() {
             <motion.div
               variants={itemVariants}
               transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="group flex items-center justify-between gap-4 px-5 py-3.5 rounded-[16px] transition-all duration-300 hover:bg-[rgba(255,255,255,0.04)] max-md:w-full max-md:max-w-[320px] max-md:justify-center"
+              className="group flex items-center justify-between gap-4 px-5 py-3.5 rounded-[16px] transition-all duration-300 hover:bg-[rgba(255,255,255,0.04)] max-md:w-full max-md:justify-center"
               style={{
                 border: '1px solid rgba(255,255,255,0.08)',
                 backgroundColor: 'rgba(255,255,255,0.02)',
@@ -2049,7 +2079,7 @@ function BlockFinal() {
           <motion.div
             variants={itemVariants}
             transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-            className="relative overflow-hidden rounded-[20px] max-md:rounded-[24px] h-[240px] lg:h-[280px] max-md:h-[200px] border border-[#2A2A2D]/60 max-md:order-last max-md:w-full max-md:max-w-[360px] max-md:mx-auto"
+            className="relative overflow-hidden rounded-[20px] max-md:rounded-[24px] h-[240px] lg:h-[280px] max-md:h-[200px] border border-[#2A2A2D]/60 max-md:order-last max-md:w-full max-md:mx-auto"
           >
             <iframe
               src={CONTACTS.mapUrl}
