@@ -53,73 +53,16 @@ const MATERIALS = [
   { id: 'baltik-blue', title: 'Балтик Блю', subtitle: 'тёмный с синими переливами, Норвегия', image: '/material-light-grey.png' },
   { id: 'mansurovsky', title: 'Мансуровский', subtitle: 'светло-серый, равномерный, Россия', image: '/material-mansurovsky.png' },
   { id: 'shansi-black', title: 'Шанси Блэк', subtitle: 'чёрный, однородный, мелкозернистый, Китай', image: '/material-gabbro-dark.png' },
-  { id: 'nero-afrika', title: 'Неро Африка', subtitle: 'чёрный с серыми вкраплениями, ЮАР', image: '/material-imperial-black.png' },
-  { id: 'ever-green', title: 'Эвер Грин', subtitle: 'тёмно-зелёный, плотный, Китай', image: '/material-olive-green.png' },
-  { id: 'g439', title: 'G-439', subtitle: 'серый, мелкозернистый, Китай', image: '/material-light-grey.png' },
-  { id: 'g623', title: 'G-623', subtitle: 'светло-серый, равномерный, Китай', image: '/material-mansurovsky.png' },
-  { id: 'zhezhelevsky', title: 'Жежелевский', subtitle: 'серо-коричневый, крупнозернистый, Украина', image: '/material-tan-brown.png' },
-  { id: 'lisya-gorka', title: 'Лисья Горка', subtitle: 'серый, плотный, Россия', image: '/material-light-grey.png' },
-  { id: 'multicolor-red', title: 'Мультиколор Рэд', subtitle: 'красный с чёрными прожилками, Индия', image: '/material-imperial-red.png' },
-  { id: 'kalguvara', title: 'Калгувара', subtitle: 'красный с волнистым рисунком, Россия', image: '/material-kapustinsky.png' },
-  { id: 'tokovsky', title: 'Токовский', subtitle: 'коричнево-красный, Украина', image: '/material-tan-brown.png' },
-  { id: 'black-cosmic', title: 'Блэк Космик', subtitle: 'чёрный с золотистыми прожилками, Бразилия', image: '/material-imperial-black.png' },
-  { id: 'nero-markino', title: 'Неро Маркино', subtitle: 'чёрный с белыми прожилками, Испания', image: '/material-imperial-black.png' },
-  { id: 'green-tinos', title: 'Грин Тинос', subtitle: 'зелёный с белыми прожилками, Греция', image: '/material-olive-green.png' },
-  { id: 'butterfly-green', title: 'Батерфляй Грин', subtitle: 'зелёный с чёрными узорами, Китай', image: '/material-olive-green.png' },
-  { id: 'carmen-red', title: 'Кармэн Рэд', subtitle: 'красный, равномерный, Финляндия', image: '/material-imperial-red.png' },
-  { id: 'azul-bahia', title: 'Азул Бахия', subtitle: 'синий с яркими прожилками, Бразилия', image: '/material-blue-pearl.png' },
-  { id: 'kurtinsky', title: 'Куртинский', subtitle: 'коричневый, зернистый, Казахстан', image: '/material-tan-brown.png' },
-  { id: 'pj-black', title: 'Пи Джи Блэк', subtitle: 'чёрный, глубокий, Финляндия', image: '/material-gabbro-dark.png' },
-  { id: 'polotsky', title: 'Полоцкий', subtitle: 'серо-бежевый, плотный, Россия', image: '/material-light-grey.png' },
-  { id: 'tropical-green', title: 'Тропикал Грин', subtitle: 'зелёный с хаотичным рисунком, Индия', image: '/material-olive-green.png' },
-  { id: 'g633', title: 'G-633', subtitle: 'серый, универсальный, Китай', image: '/material-light-grey.png' },
-  { id: 'g636', title: 'G-636', subtitle: 'серый, равномерный, Китай', image: '/material-mansurovsky.png' },
-  { id: 'vozrozhdenie', title: 'Возрождение', subtitle: 'серый с тёмными вкраплениями, Россия', image: '/material-light-grey.png' },
-  { id: 'kurdaysky', title: 'Курдайский', subtitle: 'красно-коричневый, Казахстан', image: '/material-tan-brown.png' },
-  { id: 'tokimovsky', title: 'Токимовский', subtitle: 'тёмно-коричневый, Россия', image: '/material-tan-brown.png' },
-  { id: 'kashina-gora', title: 'Кашина Гора', subtitle: 'серо-коричневый, Россия', image: '/material-tan-brown.png' },
-  { id: 'cafe-imperial', title: 'Кафе Империал', subtitle: 'коричневый с чёрными вкраплениями, Индия', image: '/material-tan-brown.png' },
-  { id: 'pokostovsky', title: 'Покостовский', subtitle: 'серый с чёрными точками, Украина', image: '/material-light-grey.png' },
-  { id: 'padang-dark', title: 'Паданг Дарк', subtitle: 'тёмно-серый, Китай', image: '/material-imperial-black.png' },
-  { id: 'kapustinsky', title: 'Капустинский', subtitle: 'красный, крупнозернистый, Украина', image: '/material-kapustinsky.png' },
-  { id: 'shoksha', title: 'Шокша', subtitle: 'малиново-красный, плотный, Карелия, Россия', image: '/material-imperial-red.png' },
-  { id: 'amadeus', title: 'Амадеус', subtitle: 'сине-серый, мелкозернистый, Финляндия', image: '/material-blue-pearl.png' },
-  { id: 'bahama-blue', title: 'Багама Блю', subtitle: 'синий с серыми прожилками, Индия', image: '/material-blue-pearl.png' },
-  { id: 'elizovsky', title: 'Елизовский', subtitle: 'коричневый, равномерный, Россия', image: '/material-tan-brown.png' },
-  { id: 'paradiso-klassik', title: 'Парадизо Классик', subtitle: 'серо-коричневый с волнами, Индия', image: '/material-paradiso.png' },
-  { id: 'gabbro-ukr', title: 'Габбро', subtitle: 'чёрный, плотный, Украина', image: '/material-gabbro-dark.png' },
-  { id: 'green-galaxy', title: 'Грин Гэлакси', subtitle: 'зелёный с блеском, Китай', image: '/material-olive-green.png' },
-  { id: 'emerald-pearl', title: 'Эмеральд Пёрл', subtitle: 'тёмно-зелёный с переливами, Норвегия', image: '/material-olive-green.png' },
-  { id: 'ufaley', title: 'Уфалей', subtitle: 'светло-серый, Россия', image: '/material-mansurovsky.png' },
-  { id: 'silver-pearl', title: 'Сильвер Пёрл', subtitle: 'серый с металлическим блеском, Норвегия', image: '/material-light-grey.png' },
-  { id: 'steel-gray', title: 'Стил Грэй', subtitle: 'серый, строгий, Индия', image: '/material-light-grey.png' },
-  { id: 'maple-red', title: 'Мапл Рэд', subtitle: 'красный с мелким зерном, Китай', image: '/material-imperial-red.png' },
-  { id: 'volga-blue', title: 'Волга Блю', subtitle: 'тёмный с голубыми кристаллами, Украина', image: '/material-blue-pearl.png' },
-  { id: 'absolut-black', title: 'Абсолют Блэк', subtitle: 'чёрный, максимально однородный, Индия', image: '/material-gabbro-dark.png' },
-  { id: 'zmeevik-grigoryevsky', title: 'Змеевик Григорьевский', subtitle: 'зелёный с прожилками, Россия', image: '/material-olive-green.png' },
-  { id: 'tan-brown', title: 'Тан Браун', subtitle: 'коричневый с чёрными вкраплениями, Индия', image: '/material-tan-brown.png' },
-  { id: 'maslovsky', title: 'Масловский', subtitle: 'зелёный, Украина', image: '/material-olive-green.png' },
-  { id: 'sibirsky', title: 'Сибирский', subtitle: 'серый, плотный, Россия', image: '/material-light-grey.png' },
-  { id: 'syskyuyansaaari', title: 'Сюскюянсаари', subtitle: 'красный, Карелия, Россия', image: '/material-imperial-red.png' },
-  { id: 'kashmir-white', title: 'Кашмир Уайт', subtitle: 'бело-серый с прожилками, Индия', image: '/material-mansurovsky.png' },
-  { id: 'yunnan-green', title: 'Юньнань Грин', subtitle: 'тёмно-зелёный, Китай', image: '/material-olive-green.png' },
-  { id: 'blue-pearl', title: 'Блю Пёрл', subtitle: 'синий с переливами, Норвегия', image: '/material-blue-pearl.png' },
-  { id: 'kuru-gray', title: 'Куру Грэй', subtitle: 'серый, Финляндия', image: '/material-light-grey.png' },
-  { id: 'rombak', title: 'Ромбак', subtitle: 'чёрный, плотный, Россия', image: '/material-gabbro-dark.png' },
-  { id: 'blue-antique', title: 'Блю Антик', subtitle: 'коричнево-синий, Норвегия', image: '/material-blue-pearl.png' },
-  { id: 'imperial-red', title: 'Империал Рэд', subtitle: 'красный, насыщенный, Индия', image: '/material-imperial-red.png' },
-  { id: 'black-galaxy', title: 'Блэк Гэлакси', subtitle: 'чёрный с золотыми вкраплениями, Индия', image: '/material-imperial-black.png' },
-  { id: 'masi-kvartcit', title: 'Маси Кварцит', subtitle: 'зелёный с текстурой, Норвегия', image: '/material-olive-green.png' },
-  { id: 'oliv-green', title: 'Олив Грин', subtitle: 'зелёный, однородный, Индия', image: '/material-olive-green.png' },
-  { id: 'royal-white', title: 'Роял Уайт', subtitle: 'светло-серый, Китай', image: '/material-mansurovsky.png' },
+  { id: 'nero-afrika', title: 'Цветок Урала', subtitle: 'чёрный с серыми вкраплениями, ЮАР', image: '/material-imperial-black.png' },
 ];
 
-const PHONE = '+7 900 123-45-67';
+const PHONE = '+79031168119';
 const CONTACTS = {
   whatsapp: `https://wa.me/${PHONE.replace(/\D/g, '')}`,
   telegram: 'https://t.me/stellapremium',
+  max: 'https://max.ru',
   phone: `tel:${PHONE.replace(/\s/g, '')}`,
-  email: 'info@stellapremium.ru',
+  email: 'stellapremium1999@yandex.ru',
   office: 'Москва, ул. Миклухо-Маклая, 53к1',
   production: 'Серпухов, ул. Базовая, 7',
   mapUrl: 'https://yandex.ru/map-widget/v1/?ll=37.455,55.279&pt=37.506,55.649~37.404,54.909&z=9&l=map',
@@ -1187,11 +1130,11 @@ function BlockProduction() {
               Собственное производство
             </motion.h2>
             {/* Mobile: короткий вводный текст */}
-            <p className="md:hidden font-body font-light text-[16px] leading-[1.55] mb-5 w-full" style={{ color: '#9A9A9A' }}>
+            <p className="md:hidden font-body font-light text-[16px] leading-[1.55] mb-5 w-full text-center" style={{ color: '#9A9A9A' }}>
               Полный контроль над качеством и сроками на каждом этапе.
             </p>
             {/* Desktop: длинные строки с hover */}
-            <div className="space-y-0 mt-4 max-w-[500px] ml-auto text-right max-md:hidden">
+            <div className="space-y-0 mt-4 max-w-[500px] max-lg:mx-auto max-lg:text-center lg:ml-auto lg:text-right max-md:hidden">
               {PRODUCTION_ACCENTS.map((line, i) => (
                 <motion.div
                   key={i}
@@ -1219,7 +1162,7 @@ function BlockProduction() {
                   </p>
                   {i < PRODUCTION_ACCENTS.length - 1 && (
                     <div
-                      className="mt-3 ml-auto w-[75%] h-px transition-opacity duration-300"
+                      className="mt-3 w-[75%] h-px transition-opacity duration-300 max-lg:mx-auto lg:ml-auto"
                       style={{
                         backgroundColor: '#2A2A2D',
                         opacity: hoveredLine === i ? 1 : 0.7,
@@ -1230,14 +1173,14 @@ function BlockProduction() {
               ))}
             </div>
             {/* Mobile: premium список преимуществ с иконками */}
-            <div className="md:hidden flex flex-col gap-[14px] w-full">
+            <div className="md:hidden flex flex-col gap-[14px] w-full text-center">
               {PRODUCTION_ACCENTS_MOBILE.map((line, i) => (
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, y: 12 }}
                   animate={isInView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.45, delay: 0.12 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                  className="flex items-center gap-3 text-left w-full"
+                  className="flex items-center justify-center gap-3 text-center w-full"
                 >
                   <span
                     className="shrink-0 mt-0.5"
@@ -1304,10 +1247,6 @@ function BlockMaterials() {
 
   const handleShowMore = () => {
     setVisibleCount((prev) => Math.min(prev + MATERIALS_PER_PAGE, MATERIALS.length));
-  };
-
-  const handleCollapse = () => {
-    setVisibleCount(MATERIALS_PER_PAGE);
   };
 
   return (
@@ -1420,15 +1359,26 @@ function BlockMaterials() {
             transition={{ duration: 0.5, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="mt-12 lg:mt-16 flex justify-center"
           >
-            <button
-              type="button"
-              onClick={hasMore ? handleShowMore : handleCollapse}
-              className="inline-flex items-center gap-2 px-8 py-5 border border-[#2A2A2D] rounded-[16px] font-body text-sm font-light tracking-wide transition-all duration-300 hover:bg-[rgba(42,42,45,0.3)] hover:border-[#353538]"
-              style={{ color: '#EAEAEA' }}
-            >
-              {hasMore ? 'Показать еще' : 'Свернуть'}
-              <span style={{ color: '#8A8A8A' }}>{hasMore ? '→' : '↑'}</span>
-            </button>
+            {hasMore ? (
+              <button
+                type="button"
+                onClick={handleShowMore}
+                className="inline-flex items-center gap-2 px-8 py-5 border border-[#2A2A2D] rounded-[16px] font-body text-sm font-light tracking-wide transition-all duration-300 hover:bg-[rgba(42,42,45,0.3)] hover:border-[#353538]"
+                style={{ color: '#EAEAEA' }}
+              >
+                Показать еще
+                <span style={{ color: '#8A8A8A' }}>→</span>
+              </button>
+            ) : (
+              <a
+                href="#consult"
+                className="inline-flex items-center gap-2 px-8 py-5 border border-[#2A2A2D] rounded-[16px] font-body text-sm font-light tracking-wide transition-all duration-300 hover:bg-[rgba(42,42,45,0.3)] hover:border-[#353538]"
+                style={{ color: '#EAEAEA' }}
+              >
+                Запросить полный список материалов
+                <span style={{ color: '#8A8A8A' }}>→</span>
+              </a>
+            )}
           </motion.div>
         )}
       </div>
@@ -2000,6 +1950,7 @@ function BlockTrust() {
 const MESSENGER_LINKS = [
   { id: 'wa', href: CONTACTS.whatsapp, icon: 'wa' },
   { id: 'tg', href: CONTACTS.telegram, icon: 'tg' },
+  { id: 'max', href: CONTACTS.max, icon: 'max' },
 ];
 
 function BlockFinal() {
@@ -2100,6 +2051,25 @@ function BlockFinal() {
                   <span className="font-body font-light text-[16px]">Telegram</span>
                 </motion.a>
                 <motion.a
+                  href={CONTACTS.max}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variants={itemVariants}
+                  whileTap={{ scale: 0.98 }}
+                  className="flex items-center justify-center gap-3 w-full py-4 px-5 rounded-[20px] transition-all duration-200 active:opacity-90"
+                  style={{
+                    backgroundColor: 'rgba(255,255,255,0.04)',
+                    border: '1px solid rgba(255,255,255,0.08)',
+                    color: '#EAEAEA',
+                  }}
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M4 7h16v10H4z" />
+                    <path d="M4 17l4-5 4 3 4-6 4 8" />
+                  </svg>
+                  <span className="font-body font-light text-[16px]">MAX</span>
+                </motion.a>
+                <motion.a
                   href={CONTACTS.phone}
                   variants={itemVariants}
                   whileTap={{ scale: 0.98 }}
@@ -2150,6 +2120,12 @@ function BlockFinal() {
                     {link.icon === 'tg' && (
                       <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
                         <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+                      </svg>
+                    )}
+                    {link.icon === 'max' && (
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
+                        <path d="M4 7h16v10H4z" />
+                        <path d="M4 17l4-5 4 3 4-6 4 8" />
                       </svg>
                     )}
                   </a>
