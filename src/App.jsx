@@ -107,7 +107,7 @@ function Header() {
           <img
             src="/brand-logo.png"
             alt="Стелла Премиум"
-            className="h-[84px] md:h-24 w-auto object-contain"
+            className="h-10 md:h-11 w-auto object-contain origin-left scale-[1.1] md:scale-[1.2]"
           />
         </a>
         <div className="flex items-center gap-8 max-md:gap-4">
@@ -1394,25 +1394,25 @@ function BlockMaterials() {
 // Центральный визуальный блок. Один большой слайд, структурированный текст и управление.
 const READY_WORKS = [
   { image: '/ready-works/project-12.png', title: 'Мемориальный комплекс', subtitle: 'Серпухов / гранит / индивидуальный проект' },
-  { image: '/portfolio-new/new-01.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
-  { image: '/portfolio-new/new-02.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
-  { image: '/portfolio-new/new-03.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
-  { image: '/portfolio-new/new-04.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
-  { image: '/portfolio-new/new-05.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
-  { image: '/portfolio-new/new-06.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
-  { image: '/portfolio-new/new-07.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
-  { image: '/portfolio-new/new-08.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
-  { image: '/portfolio-new/new-09.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
-  { image: '/portfolio-new/new-10.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
-  { image: '/portfolio-new/new-11.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
-  { image: '/portfolio-new/new-12.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
-  { image: '/portfolio-new/new-13.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
-  { image: '/portfolio-new/new-14.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
-  { image: '/portfolio-new/new-15.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
-  { image: '/portfolio-new/new-16.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
-  { image: '/portfolio-new/new-17.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
-  { image: '/portfolio-new/new-18.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
-  { image: '/portfolio-new/new-19.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
+  { image: '/portfolio-new/new-01.png', title: 'Мемориальный комплекс', subtitle: 'Мемориальный комплекс — срок изготовления 3 недели, установка 3 дня' },
+  { image: '/portfolio-new/new-02.png', title: 'Мемориальный комплекс', subtitle: 'Мемориальный комплекс — изготовление до 1 месяца, установка 5 дней' },
+  { image: '/portfolio-new/new-03.png', title: 'Мемориальный комплекс', subtitle: 'Мемориальный комплекс — срок производства 3–4 недели, установка 4 дня' },
+  { image: '/portfolio-new/new-04.png', title: 'Мемориальный комплекс', subtitle: 'Мемориальный комплекс — изготовление 1 месяц, монтаж 6 дней' },
+  { image: '/portfolio-new/new-05.png', title: 'Мемориальный комплекс', subtitle: 'Мемориальный комплекс — срок выполнения 3 недели, установка 3 дня' },
+  { image: '/portfolio-new/new-06.png', title: 'Мемориальный комплекс', subtitle: 'Мемориальный комплекс — изготовление до 4 недель, установка 5 дней' },
+  { image: '/portfolio-new/new-07.png', title: 'Мемориальный комплекс', subtitle: 'Мемориальный комплекс — срок производства 3 недели, монтаж 4 дня' },
+  { image: '/portfolio-new/new-08.png', title: 'Мемориальный комплекс', subtitle: 'Мемориальный комплекс — изготовление 1 месяц, установка 7 дней' },
+  { image: '/portfolio-new/new-09.png', title: 'Мемориальный комплекс', subtitle: 'Мемориальный комплекс — срок выполнения 3–4 недели, монтаж 5 дней' },
+  { image: '/portfolio-new/new-10.png', title: 'Мемориальный комплекс', subtitle: 'Мемориальный комплекс — изготовление до 1 месяца, установка 3 дня' },
+  { image: '/portfolio-new/new-11.png', title: 'Мемориальный комплекс', subtitle: 'Мемориальный комплекс — срок производства 3 недели, установка 6 дней' },
+  { image: '/portfolio-new/new-12.png', title: 'Мемориальный комплекс', subtitle: 'Мемориальный комплекс — изготовление 4 недели, монтаж 4 дня' },
+  { image: '/portfolio-new/new-13.png', title: 'Мемориальный комплекс', subtitle: 'Мемориальный комплекс — срок выполнения 1 месяц, установка 5 дней' },
+  { image: '/portfolio-new/new-14.png', title: 'Мемориальный комплекс', subtitle: 'Мемориальный комплекс — изготовление 3 недели, установка 7 дней' },
+  { image: '/portfolio-new/new-15.png', title: 'Мемориальный комплекс', subtitle: 'Мемориальный комплекс — срок производства 3–4 недели, монтаж 3 дня' },
+  { image: '/portfolio-new/new-16.png', title: 'Мемориальный комплекс', subtitle: 'Мемориальный комплекс — изготовление до 1 месяца, установка 6 дней' },
+  { image: '/portfolio-new/new-17.png', title: 'Мемориальный комплекс', subtitle: 'Мемориальный комплекс — срок выполнения 4 недели, монтаж 5 дней' },
+  { image: '/portfolio-new/new-18.png', title: 'Мемориальный комплекс', subtitle: 'Мемориальный комплекс — изготовление 3 недели, установка 4 дня' },
+  { image: '/portfolio-new/new-19.png', title: 'Мемориальный комплекс', subtitle: 'Мемориальный комплекс — срок производства до 1 месяца, монтаж 3 дня' },
 ];
 
 const TOTAL = READY_WORKS.length;
@@ -2003,7 +2003,7 @@ function BlockFinal() {
               <img
                 src="/brand-logo.png"
                 alt="Стелла Премиум"
-                className="h-[132px] md:h-[160px] w-auto object-contain mx-auto md:mx-0 opacity-95 contrast-110 brightness-110"
+                className="h-[74px] md:h-[90px] w-auto object-contain mx-auto md:mx-0 opacity-95 contrast-110 brightness-110"
               />
             </motion.div>
             <motion.h2
@@ -2235,7 +2235,7 @@ function Footer() {
           <img
             src="/brand-logo.png"
             alt="Стелла Премиум"
-            className="h-[66px] md:h-[80px] w-auto object-contain opacity-95 contrast-110 brightness-110"
+            className="h-[36px] md:h-[42px] w-auto object-contain opacity-95 contrast-110 brightness-110"
           />
           <div className="flex flex-wrap items-center gap-6">
             <a
@@ -2322,29 +2322,104 @@ function PrivacyContent() {
             lineHeight: 1.72,
           }}
         >
-          <p>Вставьте сюда текст политики конфиденциальности.</p>
-          <h2
-            className="font-body font-medium pt-4"
-            style={{
-              color: '#EAEAEA',
-              fontSize: 'clamp(1.125rem, 2vw, 1.375rem)',
-              lineHeight: 1.35,
-            }}
-          >
-            Раздел 1
+          <h2 className="font-body font-medium pt-4" style={{ color: '#EAEAEA', fontSize: 'clamp(1.125rem, 2vw, 1.375rem)', lineHeight: 1.35 }}>
+            1. Общие положения
           </h2>
-          <p>Текст раздела...</p>
-          <h2
-            className="font-body font-medium pt-4"
-            style={{
-              color: '#EAEAEA',
-              fontSize: 'clamp(1.125rem, 2vw, 1.375rem)',
-              lineHeight: 1.35,
-            }}
-          >
-            Раздел 2
+          <p>Настоящая Политика конфиденциальности определяет порядок обработки и защиты информации о пользователях сайта <strong>Stella Premium</strong> (далее — Сайт).</p>
+          <p>Используя Сайт, пользователь выражает согласие с настоящей Политикой.</p>
+
+          <h2 className="font-body font-medium pt-4" style={{ color: '#EAEAEA', fontSize: 'clamp(1.125rem, 2vw, 1.375rem)', lineHeight: 1.35 }}>
+            2. Какие данные мы собираем
           </h2>
-          <p>Текст раздела...</p>
+          <p>Мы не используем формы сбора персональных данных на Сайте.</p>
+          <p>При этом автоматически могут собираться:</p>
+          <ul className="list-disc pl-6 space-y-1">
+            <li>IP-адрес пользователя</li>
+            <li>данные о браузере и устройстве</li>
+            <li>cookies</li>
+            <li>информация о посещённых страницах и действиях на Сайте</li>
+          </ul>
+
+          <h2 className="font-body font-medium pt-4" style={{ color: '#EAEAEA', fontSize: 'clamp(1.125rem, 2vw, 1.375rem)', lineHeight: 1.35 }}>
+            3. Использование аналитики
+          </h2>
+          <p>На Сайте используется сервис веб-аналитики <strong>Яндекс.Метрика</strong>.</p>
+          <p>Сервис может собирать обезличенные данные о поведении пользователей, включая:</p>
+          <ul className="list-disc pl-6 space-y-1">
+            <li>посещаемые страницы</li>
+            <li>время нахождения на сайте</li>
+            <li>действия пользователя (клики, прокрутка)</li>
+          </ul>
+          <p>
+            Обработка данных осуществляется в соответствии с политикой Яндекса:{' '}
+            <a
+              href="https://yandex.ru/legal/confidential/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline underline-offset-4"
+              style={{ color: '#EAEAEA' }}
+            >
+              https://yandex.ru/legal/confidential/
+            </a>
+          </p>
+
+          <h2 className="font-body font-medium pt-4" style={{ color: '#EAEAEA', fontSize: 'clamp(1.125rem, 2vw, 1.375rem)', lineHeight: 1.35 }}>
+            4. Использование cookies
+          </h2>
+          <p>Сайт использует cookies для:</p>
+          <ul className="list-disc pl-6 space-y-1">
+            <li>корректной работы сайта</li>
+            <li>анализа поведения пользователей</li>
+            <li>улучшения пользовательского опыта</li>
+          </ul>
+          <p>Пользователь может отключить cookies в настройках браузера.</p>
+
+          <h2 className="font-body font-medium pt-4" style={{ color: '#EAEAEA', fontSize: 'clamp(1.125rem, 2vw, 1.375rem)', lineHeight: 1.35 }}>
+            5. Взаимодействие через мессенджеры
+          </h2>
+          <p>На Сайте размещены кнопки перехода в сторонние сервисы:</p>
+          <ul className="list-disc pl-6 space-y-1">
+            <li>WhatsApp</li>
+            <li>Telegram</li>
+            <li>Max</li>
+          </ul>
+          <p>При переходе в данные сервисы пользователь взаимодействует с ними на условиях их собственных политик конфиденциальности.</p>
+          <p>Мы не контролируем и не несем ответственность за обработку данных в сторонних сервисах.</p>
+
+          <h2 className="font-body font-medium pt-4" style={{ color: '#EAEAEA', fontSize: 'clamp(1.125rem, 2vw, 1.375rem)', lineHeight: 1.35 }}>
+            6. Передача данных третьим лицам
+          </h2>
+          <p>Мы не передаем персональные данные пользователей третьим лицам, за исключением случаев, предусмотренных законодательством.</p>
+
+          <h2 className="font-body font-medium pt-4" style={{ color: '#EAEAEA', fontSize: 'clamp(1.125rem, 2vw, 1.375rem)', lineHeight: 1.35 }}>
+            7. Защита информации
+          </h2>
+          <p>Мы принимаем необходимые организационные и технические меры для защиты информации пользователей от несанкционированного доступа.</p>
+
+          <h2 className="font-body font-medium pt-4" style={{ color: '#EAEAEA', fontSize: 'clamp(1.125rem, 2vw, 1.375rem)', lineHeight: 1.35 }}>
+            8. Права пользователя
+          </h2>
+          <p>Пользователь имеет право:</p>
+          <ul className="list-disc pl-6 space-y-1">
+            <li>получать информацию об обработке своих данных</li>
+            <li>требовать удаления или уточнения данных (если применимо)</li>
+            <li>ограничить использование cookies</li>
+          </ul>
+
+          <h2 className="font-body font-medium pt-4" style={{ color: '#EAEAEA', fontSize: 'clamp(1.125rem, 2vw, 1.375rem)', lineHeight: 1.35 }}>
+            9. Изменения политики
+          </h2>
+          <p>Мы вправе обновлять настоящую Политику без предварительного уведомления.</p>
+          <p>Актуальная версия всегда доступна на данной странице.</p>
+
+          <h2 className="font-body font-medium pt-4" style={{ color: '#EAEAEA', fontSize: 'clamp(1.125rem, 2vw, 1.375rem)', lineHeight: 1.35 }}>
+            10. Контакты
+          </h2>
+          <p>По всем вопросам, связанным с обработкой данных, вы можете связаться с нами:</p>
+          <ul className="list-disc pl-6 space-y-1">
+            <li>по телефону</li>
+            <li>через мессенджеры, указанные на Сайте</li>
+          </ul>
         </div>
       </div>
     </section>
@@ -2362,11 +2437,11 @@ function App() {
       if (desc) desc.setAttribute('content', 'Политика конфиденциальности Stella Premium');
       return;
     }
-    document.title = 'Стелла Память — Мемориальные комплексы из гранита';
+    document.title = 'Stella Premium — мемориальные комплексы из гранита под ключ';
     if (desc) {
       desc.setAttribute(
         'content',
-        'Стелла Память — мемориальные комплексы из гранита. Проектирование, изготовление и установка.'
+        'Индивидуальные мемориальные комплексы из гранита с проектированием, подбором материалов, производством и установкой под ключ. Stella Premium.'
       );
     }
   }, [isPrivacyPage]);
