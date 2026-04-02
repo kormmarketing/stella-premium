@@ -19,8 +19,8 @@ const PROJECT_STEPS = [
 ];
 
 const PROJECT_IMAGES = [
-  '/project-01.png', '/project-02.png', '/project-03.png', '/project-04.png', '/project-05.png',
-  '/project-06.png', '/project-07.png', '/project-08.png', '/project-09.png', '/project-10.png',
+  '/project-01.png', '/portfolio-new/new-01.png', '/portfolio-new/new-02.png', '/portfolio-new/new-03.png', '/portfolio-new/new-04.png',
+  '/portfolio-new/new-05.png', '/portfolio-new/new-06.png', '/portfolio-new/new-07.png', '/portfolio-new/new-08.png', '/portfolio-new/new-09.png',
 ];
 
 const PROJECT_MOCKUPS = [
@@ -56,7 +56,7 @@ const MATERIALS = [
   { id: 'nero-afrika', title: 'Цветок Урала', subtitle: 'чёрный с серыми вкраплениями, ЮАР', image: '/material-imperial-black.png' },
 ];
 
-const PHONE = '+79031168119';
+const PHONE = '+7(903)-116-81-19';
 const CONTACTS = {
   whatsapp: `https://wa.me/${PHONE.replace(/\D/g, '')}`,
   telegram: 'https://t.me/stellapremium',
@@ -103,8 +103,12 @@ function Header() {
       className="fixed top-0 left-0 right-0 z-50 py-5 px-6 md:px-12 lg:px-16 max-md:py-4 max-md:px-5"
     >
       <div className="max-w-content mx-auto flex justify-between items-center">
-        <a href="/" className="font-body text-text-main text-[15px] font-light tracking-wide hover:text-text-muted transition-colors duration-300">
-          StellaPremium
+        <a href="/" className="inline-flex items-center">
+          <img
+            src="/brand-logo.png"
+            alt="Стелла Премиум"
+            className="h-[84px] md:h-24 w-auto object-contain"
+          />
         </a>
         <div className="flex items-center gap-8 max-md:gap-4">
           <a href={`tel:${PHONE.replace(/\s/g, '')}`} className="text-text-muted text-sm font-light hover:text-text-main transition-colors hidden sm:block">
@@ -1390,19 +1394,25 @@ function BlockMaterials() {
 // Центральный визуальный блок. Один большой слайд, структурированный текст и управление.
 const READY_WORKS = [
   { image: '/ready-works/project-12.png', title: 'Мемориальный комплекс', subtitle: 'Серпухов / гранит / индивидуальный проект' },
-  { image: '/ready-works/project-1.png', title: 'Мемориальный комплекс', subtitle: 'Московская область / комбинированный гранит' },
-  { image: '/ready-works/project-2.png', title: 'Мемориальный комплекс', subtitle: 'Серпухов / гранит' },
-  { image: '/ready-works/project-3.png', title: 'Мемориальный комплекс', subtitle: 'Московская область / комбинированный гранит' },
-  { image: '/ready-works/project-4.png', title: 'Мемориальный комплекс', subtitle: 'Серпухов / гранит' },
-  { image: '/ready-works/project-5.png', title: 'Мемориальный комплекс', subtitle: 'Московская область / гранит' },
-  { image: '/ready-works/project-6.png', title: 'Мемориальный комплекс', subtitle: 'Московская область / комбинированный гранит' },
-  { image: '/ready-works/project-7.png', title: 'Мемориальный комплекс', subtitle: 'Серпухов / гранит' },
-  { image: '/ready-works/project-8.png', title: 'Мемориальный комплекс', subtitle: 'Московская область / гранит' },
-  { image: '/ready-works/project-9.png', title: 'Мемориальный комплекс', subtitle: 'Серпухов / гранит' },
-  { image: '/ready-works/project-10.png', title: 'Мемориальный комплекс', subtitle: 'Московская область / гранит' },
-  { image: '/ready-works/project-11.png', title: 'Мемориальный комплекс', subtitle: 'Серпухов / гранит / скульптура ангела' },
-  { image: '/ready-works/project-13.png', title: 'Мемориальный комплекс', subtitle: 'Сахаровы / гранит / индивидуальный проект' },
-  { image: '/ready-works/project-14.png', title: 'Мемориальный комплекс', subtitle: 'Чёрный гранит / индивидуальный проект с резной скульптурой' },
+  { image: '/portfolio-new/new-01.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
+  { image: '/portfolio-new/new-02.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
+  { image: '/portfolio-new/new-03.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
+  { image: '/portfolio-new/new-04.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
+  { image: '/portfolio-new/new-05.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
+  { image: '/portfolio-new/new-06.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
+  { image: '/portfolio-new/new-07.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
+  { image: '/portfolio-new/new-08.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
+  { image: '/portfolio-new/new-09.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
+  { image: '/portfolio-new/new-10.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
+  { image: '/portfolio-new/new-11.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
+  { image: '/portfolio-new/new-12.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
+  { image: '/portfolio-new/new-13.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
+  { image: '/portfolio-new/new-14.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
+  { image: '/portfolio-new/new-15.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
+  { image: '/portfolio-new/new-16.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
+  { image: '/portfolio-new/new-17.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
+  { image: '/portfolio-new/new-18.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
+  { image: '/portfolio-new/new-19.png', title: 'Мемориальный комплекс', subtitle: 'Готовая работа' },
 ];
 
 const TOTAL = READY_WORKS.length;
@@ -1986,6 +1996,16 @@ function BlockFinal() {
           {/* ЛЕВАЯ КОЛОНКА */}
           <div className="space-y-6 min-w-0 max-md:space-y-5 max-md:w-full max-md:flex max-md:flex-col max-md:items-center">
             {/* Desktop: заголовок */}
+            <motion.div
+              variants={itemVariants}
+              className="mb-1"
+            >
+              <img
+                src="/brand-logo.png"
+                alt="Стелла Премиум"
+                className="h-[132px] md:h-[160px] w-auto object-contain mx-auto md:mx-0 opacity-95 contrast-110 brightness-110"
+              />
+            </motion.div>
             <motion.h2
               variants={itemVariants}
               transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
@@ -2063,10 +2083,12 @@ function BlockFinal() {
                     color: '#EAEAEA',
                   }}
                 >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M4 7h16v10H4z" />
-                    <path d="M4 17l4-5 4 3 4-6 4 8" />
-                  </svg>
+                  <img
+                    src="/max-logo.png"
+                    alt=""
+                    aria-hidden
+                    className="w-5 h-5 rounded-[6px] object-cover ring-1 ring-white/15 grayscale contrast-125 brightness-110"
+                  />
                   <span className="font-body font-light text-[16px]">MAX</span>
                 </motion.a>
                 <motion.a
@@ -2123,10 +2145,12 @@ function BlockFinal() {
                       </svg>
                     )}
                     {link.icon === 'max' && (
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5">
-                        <path d="M4 7h16v10H4z" />
-                        <path d="M4 17l4-5 4 3 4-6 4 8" />
-                      </svg>
+                      <img
+                        src="/max-logo.png"
+                        alt=""
+                        aria-hidden
+                        className="w-5 h-5 rounded-[6px] object-cover ring-1 ring-white/15 grayscale contrast-125 brightness-110"
+                      />
                     )}
                   </a>
                 ))}
@@ -2208,9 +2232,11 @@ function Footer() {
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-12 lg:mb-14 max-md:mb-6 max-md:gap-4"
         >
-          <span className="font-heading text-[1.125rem] font-medium tracking-wide" style={{ color: '#EAEAEA' }}>
-            StellaPremium
-          </span>
+          <img
+            src="/brand-logo.png"
+            alt="Стелла Премиум"
+            className="h-[66px] md:h-[80px] w-auto object-contain opacity-95 contrast-110 brightness-110"
+          />
           <div className="flex flex-wrap items-center gap-6">
             <a
               href={`tel:${PHONE.replace(/\s/g, '')}`}
@@ -2255,7 +2281,7 @@ function Footer() {
           className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-6 border-t border-[#2A2A2D]/60"
         >
           <span className="font-body text-sm font-light" style={{ color: '#8A8A8A' }}>
-            © StellaPremium
+            © СтеллаПремиум
           </span>
           <a
             href="/privacy"
@@ -2270,21 +2296,100 @@ function Footer() {
   );
 }
 
+function PrivacyContent() {
+  return (
+    <section
+      className="px-5 py-[80px] md:py-[80px] max-md:pt-[120px] max-md:pb-[60px]"
+      style={{ backgroundColor: '#0F0F10' }}
+    >
+      <div className="max-w-[880px] mx-auto">
+        <h1
+          className="font-heading font-medium tracking-[-0.02em] text-center mb-10"
+          style={{
+            color: '#EAEAEA',
+            fontSize: 'clamp(2rem, 3.2vw, 2.5rem)',
+            lineHeight: 1.15,
+          }}
+        >
+          Политика конфиденциальности
+        </h1>
+
+        <div
+          className="font-body font-light space-y-4"
+          style={{
+            color: 'rgba(234,234,234,0.78)',
+            fontSize: '16px',
+            lineHeight: 1.72,
+          }}
+        >
+          <p>Вставьте сюда текст политики конфиденциальности.</p>
+          <h2
+            className="font-body font-medium pt-4"
+            style={{
+              color: '#EAEAEA',
+              fontSize: 'clamp(1.125rem, 2vw, 1.375rem)',
+              lineHeight: 1.35,
+            }}
+          >
+            Раздел 1
+          </h2>
+          <p>Текст раздела...</p>
+          <h2
+            className="font-body font-medium pt-4"
+            style={{
+              color: '#EAEAEA',
+              fontSize: 'clamp(1.125rem, 2vw, 1.375rem)',
+              lineHeight: 1.35,
+            }}
+          >
+            Раздел 2
+          </h2>
+          <p>Текст раздела...</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ─── App ─────────────────────────────────────────────────────────────────
 function App() {
+  const isPrivacyPage = typeof window !== 'undefined' && window.location.pathname === '/privacy';
+
+  useEffect(() => {
+    const desc = document.querySelector('meta[name="description"]');
+    if (isPrivacyPage) {
+      document.title = 'Политика конфиденциальности | Stella Premium';
+      if (desc) desc.setAttribute('content', 'Политика конфиденциальности Stella Premium');
+      return;
+    }
+    document.title = 'Стелла Память — Мемориальные комплексы из гранита';
+    if (desc) {
+      desc.setAttribute(
+        'content',
+        'Стелла Память — мемориальные комплексы из гранита. Проектирование, изготовление и установка.'
+      );
+    }
+  }, [isPrivacyPage]);
+
   return (
     <>
       <Header />
       <main>
-        <Hero />
-        <BlockMeaning />
-        <BlockProject />
-        <BlockProjects />
-        <BlockProduction />
-        <BlockMaterials />
-        <BlockReadyWorks />
-        <BlockTrust />
-        <BlockFinal />
+        {isPrivacyPage ? (
+          <PrivacyContent />
+        ) : (
+          <>
+            <Hero />
+            <BlockMeaning />
+            <BlockProject />
+            <BlockProjects />
+            <BlockProduction />
+            <BlockMaterials />
+            <BlockReadyWorks />
+            <BlockTrust />
+            <BlockFinal />
+          </>
+        )}
       </main>
       <Footer />
     </>
