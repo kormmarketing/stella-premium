@@ -46,20 +46,20 @@ const MATERIALS = [
   { id: 'vinga', title: 'Винга', subtitle: 'красно-розовый, среднезернистый, Россия', image: '/material-imperial-red.png' },
   { id: 'dymovsky', title: 'Дымовский', subtitle: 'коричнево-красный, крупнозернистый, Россия', image: '/material-tan-brown.png' },
   { id: 'aurora', title: 'Аврора', subtitle: 'коричнево-красный с тёмными включениями, Финляндия', image: '/material-paradiso.png' },
-  { id: 'tsvetok-urala', title: 'Цветок Урала', subtitle: 'серо-розовый, среднезернистый, Россия', image: '/material-imperial-black.png' },
+  { id: 'tsvetok-urala', title: 'Цветок Урала', subtitle: 'серо-розовый, среднезернистый, Челябинская область, Россия', image: '/material-imperial-black.png' },
   { id: 'leznikovsky', title: 'Лезниковский', subtitle: 'красный, насыщенный, крупнозернистый, Украина', image: '/material-olive-green.png' },
   { id: 'baltik-green', title: 'Балтик Грин', subtitle: 'зелёный с чёрными пятнами, Финляндия', image: '/material-blue-pearl.png' },
   { id: 'amphibolit', title: 'Амфиболит', subtitle: 'тёмно-зелёный, почти чёрный, плотный, Россия', image: '/material-kapustinsky.png' },
   { id: 'baltik-blue', title: 'Балтик Блю', subtitle: 'тёмный с синими переливами, Норвегия', image: '/material-light-grey.png' },
   { id: 'mansurovsky', title: 'Мансуровский', subtitle: 'светло-серый, равномерный, Россия', image: '/material-mansurovsky.png' },
-  { id: 'shansi-black', title: 'Шанси Блэк', subtitle: 'чёрный, однородный, мелкозернистый, Китай', image: '/material-gabbro-dark.png' },
-  { id: 'nero-afrika', title: 'Цветок Урала', subtitle: 'чёрный с серыми вкраплениями, ЮАР', image: '/material-imperial-black.png' },
+  { id: 'sopka-buntina', title: 'Сопка Бунтина', subtitle: 'тёмный, выразительная текстура, Россия', image: '/material-sopka-buntina.png' },
+  { id: 'nero-afrika', title: 'Цветок Урала', subtitle: 'чёрный с серыми вкраплениями, Челябинская область, Россия', image: '/material-imperial-black.png' },
 ];
 
-const PHONE = '+7(903)-116-81-19';
+const PHONE = '+7(903)116-81-19';
 const CONTACTS = {
   whatsapp: `https://wa.me/${PHONE.replace(/\D/g, '')}`,
-  telegram: 'https://t.me/stellapremium',
+  telegram: 'https://t.me/stellapam',
   max: 'https://max.ru',
   phone: `tel:${PHONE.replace(/\s/g, '')}`,
   email: 'stellapremium1999@yandex.ru',
@@ -562,7 +562,7 @@ function BlockMeaning() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              className="fixed inset-0 z-[90] flex items-center justify-center p-4 sm:p-6"
+              className="fixed inset-0 z-[140] flex items-center justify-center p-4 sm:p-6"
             >
               <div
                 className="absolute inset-0 bg-black/60 backdrop-blur-sm"
@@ -840,39 +840,75 @@ function BlockProject() {
   );
 }
 
-// ─── 5. Проекты — премиальный слайдер-галерея ─────────────────────────────
-const slideVariants = {
-  enter: (dir) => ({ x: dir > 0 ? 80 : -80, opacity: 0 }),
-  center: { x: 0, opacity: 1 },
-  exit: (dir) => ({ x: dir < 0 ? 80 : -80, opacity: 0 }),
+// ─── 5. Проекты — один кейс: макет + чертежи ──────────────────────────────
+const PROJECT_SHOWCASE = {
+  title: 'Мемориальный комплекс №3',
+  subtitle: 'Индивидуальный проект / Мансуровский гранит',
+  description: 'Мемориальный комплекс из гранита Габбро-диабаз и Мансуровского.',
+  specs: [
+    { label: 'Проект', value: 'Индивидуальный проект' },
+    { label: 'Покрытие участка', value: 'Плитка из габбро-диабаза, термообработка' },
+    { label: 'Размер плит', value: '60 x 40 см' },
+    { label: 'Параметры участка', value: '2 x 2,5 м, устойчивый грунт' },
+    { label: 'Фундамент', value: 'Армированное бетонное основание — 20 см' },
+    { label: 'Сваи по углам', value: 'Армирование: Ø12, глубина: 1 м' },
+  ],
+  mockups: [
+    '/case-showcase/mockup-main.png',
+    '/case-showcase/mockup-01.png',
+    '/case-showcase/mockup-02.png',
+    '/case-showcase/mockup-04.png',
+  ],
+  drawings: [
+    '/case-showcase/drawing-09.png',
+    '/case-showcase/drawing-05.png',
+    '/case-showcase/drawing-07.png',
+    '/case-showcase/drawing-01.png',
+    '/case-showcase/drawing-02.png',
+    '/case-showcase/drawing-03.png',
+    '/case-showcase/drawing-04.png',
+    '/case-showcase/drawing-06.png',
+    '/case-showcase/drawing-08.png',
+    '/case-showcase/drawing-10.png',
+    '/case-showcase/drawing-11.png',
+    '/case-showcase/drawing-12.png',
+  ],
 };
 
 function BlockProjects() {
   const sectionRef = useRef(null);
   const isInView = useInView(sectionRef, { once: true, margin: '-80px' });
-  const [slideIndex, setSlideIndex] = useState(0);
-  const [direction, setDirection] = useState(0);
-  const [lightboxImage, setLightboxImage] = useState(null);
+  const [mockupIndex, setMockupIndex] = useState(0);
+  const [drawingIndex, setDrawingIndex] = useState(0);
+  const [lightbox, setLightbox] = useState(null); // { type: 'mockup' | 'drawing', index: number }
 
-  const total = PROJECTS_CASES.length;
-  const goNext = () => {
-    setDirection(1);
-    setSlideIndex((i) => (i + 1) % total);
-  };
-  const goPrev = () => {
-    setDirection(-1);
-    setSlideIndex((i) => (i - 1 + total) % total);
+  const mockupTotal = PROJECT_SHOWCASE.mockups.length;
+  const drawingTotal = PROJECT_SHOWCASE.drawings.length;
+
+  const activeMockup = PROJECT_SHOWCASE.mockups[mockupIndex];
+  const activeDrawing = PROJECT_SHOWCASE.drawings[drawingIndex];
+
+  const goMockupNext = () => setMockupIndex((i) => (i + 1) % mockupTotal);
+  const goMockupPrev = () => setMockupIndex((i) => (i - 1 + mockupTotal) % mockupTotal);
+  const goDrawingNext = () => setDrawingIndex((i) => (i + 1) % drawingTotal);
+  const goDrawingPrev = () => setDrawingIndex((i) => (i - 1 + drawingTotal) % drawingTotal);
+
+  const openLightbox = (type, index) => setLightbox({ type, index });
+  const closeLightbox = () => setLightbox(null);
+
+  const lightboxList = lightbox?.type === 'mockup' ? PROJECT_SHOWCASE.mockups : PROJECT_SHOWCASE.drawings;
+  const lightboxSrc = lightbox && lightboxList ? lightboxList[lightbox.index] : '';
+  const lightboxTotal = lightboxList?.length || 0;
+
+  const goLightboxNext = () => {
+    if (!lightboxList || !lightbox) return;
+    setLightbox((prev) => ({ ...prev, index: (prev.index + 1) % lightboxList.length }));
   };
 
-  const handleDragEnd = (_, info) => {
-    const threshold = 50;
-    if (info.offset.x < -threshold) goNext();
-    else if (info.offset.x > threshold) goPrev();
+  const goLightboxPrev = () => {
+    if (!lightboxList || !lightbox) return;
+    setLightbox((prev) => ({ ...prev, index: (prev.index - 1 + lightboxList.length) % lightboxList.length }));
   };
-
-  const project = PROJECTS_CASES[slideIndex];
-  const resultImage = project.resultImage ?? PROJECT_IMAGES[slideIndex % PROJECT_IMAGES.length];
-  const mockupImage = project.mockupImage ?? PROJECT_MOCKUPS[slideIndex % PROJECT_MOCKUPS.length];
 
   return (
     <section
@@ -880,194 +916,215 @@ function BlockProjects() {
       className="relative py-[clamp(6rem,12vh,9rem)] px-6 md:px-12 lg:px-20 overflow-hidden max-md:py-[56px] max-md:px-0"
       style={{ backgroundColor: '#0F0F10' }}
     >
-      <div className="max-w-[1520px] mx-auto max-md:mobile-container max-md:flex max-md:flex-col max-md:items-center max-md:text-center">
+      <div className="max-w-[1520px] mx-auto max-md:mobile-container">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-12 lg:mb-16 max-md:mb-6 max-md:gap-4 max-md:flex-col max-md:items-center max-md:w-full max-md:mx-auto"
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-8 lg:mb-10 max-md:text-center"
         >
-          <div className="max-md:w-full">
-            <span
-              className="inline-block font-body text-[0.8125rem] uppercase tracking-[0.2em] mb-2 max-md:text-[12px] max-md:opacity-60"
-              style={{ color: '#9A9A9A' }}
-            >
-              Портфолио
-            </span>
-            <h2
-              className="font-heading font-medium tracking-[-0.02em] mb-3 max-md:text-[28px] max-md:mb-2"
-              style={{
-                fontSize: 'clamp(2rem, 2.8vw, 2.75rem)',
-                color: '#EAEAEA',
-              }}
-            >
-              Примеры проектов
-            </h2>
-            <p
-              className="font-body font-light max-w-lg max-md:text-[16px] max-md:w-full"
-              style={{ fontSize: '1.0625rem', color: '#9A9A9A' }}
-            >
-              Каждый комплекс разрабатывается под участок и задачу семьи
-            </p>
+          <span className="inline-block font-body text-[0.75rem] uppercase tracking-[0.2em] mb-2" style={{ color: '#8A8A8A' }}>
+            Портфолио
+          </span>
+          <h2 className="font-heading font-medium tracking-[-0.02em] mb-3 max-md:text-[28px]" style={{ fontSize: 'clamp(2rem, 2.8vw, 2.75rem)', color: '#EAEAEA' }}>
+            Пример проекта
+          </h2>
+          <p className="font-body font-light text-[1rem] max-md:text-[16px] max-w-[900px] max-md:max-w-none" style={{ color: '#9A9A9A' }}>
+            Как мы прорабатываем детали проекта
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16, filter: 'blur(4px)' }}
+          animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+          transition={{ duration: 0.52, ease: [0.22, 1, 0.36, 1] }}
+          className="rounded-[28px] border p-4 md:p-6 lg:p-8"
+          style={{ backgroundColor: '#16171A', borderColor: 'rgba(255,255,255,0.06)' }}
+        >
+          <div className="grid lg:grid-cols-2 gap-4 md:gap-6 items-start">
+            <div className="rounded-[22px] border p-3 md:p-4" style={{ borderColor: 'rgba(255,255,255,0.08)', backgroundColor: '#111214' }}>
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-[12px] uppercase tracking-[0.14em] px-3 py-1.5 rounded-full bg-black/45 text-white/80">Макет</span>
+                <div className="flex items-center gap-2">
+                  <span className="font-heading text-[0.8125rem] tabular-nums" style={{ color: '#6B6B6B' }}>
+                    {String(mockupIndex + 1).padStart(2, '0')} / {String(mockupTotal).padStart(2, '0')}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={goMockupPrev}
+                    className="w-9 h-9 rounded-full border"
+                    style={{ borderColor: 'rgba(255,255,255,0.1)', backgroundColor: 'rgba(255,255,255,0.03)', color: '#9A9A9A' }}
+                    aria-label="Предыдущий макет"
+                  >
+                    ←
+                  </button>
+                  <button
+                    type="button"
+                    onClick={goMockupNext}
+                    className="w-9 h-9 rounded-full border"
+                    style={{ borderColor: 'rgba(255,255,255,0.1)', backgroundColor: 'rgba(255,255,255,0.03)', color: '#9A9A9A' }}
+                    aria-label="Следующий макет"
+                  >
+                    →
+                  </button>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => openLightbox('mockup', mockupIndex)}
+                className="relative overflow-hidden rounded-[18px] w-full h-[260px] md:h-[440px] bg-[#0F1012] border border-white/5"
+              >
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={mockupIndex}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                    src={activeMockup}
+                    alt={`${PROJECT_SHOWCASE.title} — макет ${mockupIndex + 1}`}
+                    className="absolute inset-0 w-full h-full object-contain"
+                  />
+                </AnimatePresence>
+              </button>
+            </div>
+
+            <div className="rounded-[22px] border p-3 md:p-4" style={{ borderColor: 'rgba(255,255,255,0.08)', backgroundColor: '#111214' }}>
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-[12px] uppercase tracking-[0.14em] px-3 py-1.5 rounded-full bg-black/45 text-white/80">Чертежи</span>
+                <div className="flex items-center gap-2">
+                  <span className="font-heading text-[0.8125rem] tabular-nums" style={{ color: '#6B6B6B' }}>
+                    {String(drawingIndex + 1).padStart(2, '0')} / {String(drawingTotal).padStart(2, '0')}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={goDrawingPrev}
+                    className="w-9 h-9 rounded-full border"
+                    style={{ borderColor: 'rgba(255,255,255,0.1)', backgroundColor: 'rgba(255,255,255,0.03)', color: '#9A9A9A' }}
+                    aria-label="Предыдущий чертеж"
+                  >
+                    ←
+                  </button>
+                  <button
+                    type="button"
+                    onClick={goDrawingNext}
+                    className="w-9 h-9 rounded-full border"
+                    style={{ borderColor: 'rgba(255,255,255,0.1)', backgroundColor: 'rgba(255,255,255,0.03)', color: '#9A9A9A' }}
+                    aria-label="Следующий чертеж"
+                  >
+                    →
+                  </button>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => openLightbox('drawing', drawingIndex)}
+                className="relative overflow-hidden rounded-[18px] w-full h-[260px] md:h-[300px] bg-[#0F1012] border border-white/5"
+              >
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={drawingIndex}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -8 }}
+                    transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                    src={activeDrawing}
+                    alt={`${PROJECT_SHOWCASE.title} — чертеж ${drawingIndex + 1}`}
+                    className="absolute inset-0 w-full h-full object-contain"
+                  />
+                </AnimatePresence>
+              </button>
+
+              <div className="mt-3 grid grid-cols-4 md:grid-cols-6 gap-2">
+                {PROJECT_SHOWCASE.drawings.map((img, idx) => (
+                  <button
+                    key={img}
+                    type="button"
+                    onClick={() => setDrawingIndex(idx)}
+                    className="relative h-[54px] md:h-[62px] rounded-[10px] overflow-hidden border transition-colors"
+                    style={{
+                      borderColor: idx === drawingIndex ? 'rgba(255,255,255,0.34)' : 'rgba(255,255,255,0.09)',
+                      backgroundColor: '#0E0F11',
+                    }}
+                    aria-label={`Показать чертеж ${idx + 1}`}
+                  >
+                    <img src={img} alt="" aria-hidden className="absolute inset-0 w-full h-full object-cover" />
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
 
-          {/* Навигация — на mobile центрирована */}
-          <div className="flex items-center gap-6 max-md:gap-3 max-md:flex-shrink-0 max-md:justify-center max-md:w-full max-md:mt-2">
-            <span
-              className="font-heading text-[0.9375rem] tabular-nums max-md:text-[13px]"
-              style={{ color: '#6B6B6B' }}
-            >
-              {String(slideIndex + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
-            </span>
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={goPrev}
-                className="w-12 h-12 max-md:w-10 max-md:h-10 flex items-center justify-center rounded-full border border-[#2A2A2D] text-[#9A9A9A] hover:border-[#3a3a3e] hover:text-[#EAEAEA] transition-colors duration-300"
-                aria-label="Предыдущий"
-              >
-                ←
-              </button>
-              <button
-                type="button"
-                onClick={goNext}
-                className="w-12 h-12 max-md:w-10 max-md:h-10 flex items-center justify-center rounded-full border border-[#2A2A2D] text-[#9A9A9A] hover:border-[#3a3a3e] hover:text-[#EAEAEA] transition-colors duration-300"
-                aria-label="Следующий"
-              >
-                →
-              </button>
+          <div className="mt-5 md:mt-6 flex flex-col gap-2 max-md:text-center">
+            <p className="font-body font-light text-[15px] leading-relaxed max-w-[900px] max-md:mx-auto max-md:max-w-none" style={{ color: '#9A9A9A' }}>
+              {PROJECT_SHOWCASE.description}
+            </p>
+            <div className="mt-2 grid md:grid-cols-2 gap-x-8 gap-y-2 max-w-[980px] max-md:w-full">
+              {PROJECT_SHOWCASE.specs.map((item) => (
+                <div key={item.label} className="flex items-start gap-2.5">
+                  <span className="mt-2 w-1 h-1 rounded-full bg-white/45 shrink-0" aria-hidden />
+                  <p className="font-body font-light text-[14px] leading-[1.55]" style={{ color: 'rgba(234,234,234,0.78)' }}>
+                    <span style={{ color: '#B8B8BC' }}>{item.label}:</span> {item.value}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </motion.div>
-
-        {/* Слайдер */}
-        <motion.div
-          drag="x"
-          dragConstraints={{ left: 0, right: 0 }}
-          dragElastic={0.2}
-          onDragEnd={handleDragEnd}
-          className="relative cursor-grab active:cursor-grabbing"
-        >
-          <AnimatePresence initial={false} custom={direction} mode="wait">
-            <motion.div
-              key={slideIndex}
-              custom={direction}
-              variants={slideVariants}
-              initial="enter"
-              animate="center"
-              exit="exit"
-              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-              className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-stretch min-h-[500px] lg:min-h-[560px] max-md:min-h-0 max-md:gap-6 max-md:flex max-md:flex-col max-md:items-center"
-            >
-              {/* Mobile: главный визуал первым (готовый комплекс), затем текст, затем макет */}
-              {/* Правая часть — результат (главный на mobile) */}
-              <motion.div
-                initial={{ opacity: 0, scale: 1.05 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                role="button"
-                tabIndex={0}
-                onClick={() => setLightboxImage(resultImage)}
-                onKeyDown={(e) => e.key === 'Enter' && setLightboxImage(resultImage)}
-                className="relative order-1 lg:order-2 overflow-hidden rounded-[20px] max-md:rounded-[24px] border border-[#2A2A2D] group/result min-h-[320px] lg:min-h-full max-md:min-h-[240px] max-md:h-[260px] max-md:w-full cursor-pointer"
-              >
-                <img
-                  src={resultImage}
-                  alt={project.title}
-                  className="absolute inset-0 w-full h-full object-cover object-center max-md:object-contain transition-transform duration-500 group-hover/result:scale-[1.03]"
-                />
-              </motion.div>
-
-              {/* Левая часть — текст + макет (mobile: текст потом макет вторичный) */}
-              <div className="flex flex-col gap-8 order-2 lg:order-1 max-md:gap-5 max-md:order-2 max-md:items-center max-md:text-center max-md:w-full">
-                <div className="flex flex-col gap-4 max-md:gap-3 max-md:items-center max-md:w-full">
-                  <motion.p
-                    initial={{ opacity: 0, y: 16 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.1, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    className="font-body font-light text-[1rem] leading-relaxed max-md:text-[17px] max-md:leading-[1.4] max-md:font-medium max-md:w-full"
-                    style={{ color: '#9A9A9A' }}
-                  >
-                    {project.title}
-                  </motion.p>
-                  <motion.p
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.15, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    className="font-body font-light text-[1rem] max-md:text-[15px] max-md:w-full"
-                    style={{ color: '#9A9A9A' }}
-                  >
-                    {project.stone} · {project.region}
-                  </motion.p>
-                  <motion.p
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    className="font-body font-light text-[1rem] leading-relaxed max-w-md max-md:text-[15px] max-md:leading-[1.5] max-md:max-w-none max-md:w-full"
-                    style={{ color: '#9A9A9A' }}
-                  >
-                    {project.description}
-                  </motion.p>
-                </div>
-
-                {/* Макет — вторичный визуал на mobile, меньше */}
-                <div className="max-md:w-full max-md:flex max-md:flex-col max-md:items-center">
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.25, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                    role="button"
-                    tabIndex={0}
-                    onClick={() => setLightboxImage(mockupImage)}
-                    onKeyDown={(e) => e.key === 'Enter' && setLightboxImage(mockupImage)}
-                    className="flex-1 min-h-[240px] overflow-hidden rounded-2xl border border-[#2A2A2D] group/mockup cursor-pointer max-md:min-h-[160px] max-md:h-[180px] max-md:w-full max-md:rounded-[22px]"
-                  >
-                    <img
-                      src={mockupImage}
-                      alt="Макет проекта"
-                      className="w-full h-full object-contain object-center transition-transform duration-500 group-hover/mockup:scale-[1.02]"
-                    />
-                  </motion.div>
-                  <span className="hidden max-md:block mt-2 font-body text-[13px] font-light" style={{ color: '#6A6A6E' }}>
-                    Скетч / макет проекта
-                  </span>
-                </div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
-        </motion.div>
       </div>
 
-      {/* Лайтбокс при клике на фото */}
       {typeof document !== 'undefined' && createPortal(
         <AnimatePresence>
-          {lightboxImage && (
+          {lightbox && lightboxList && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
-              className="fixed inset-0 z-[90] flex items-center justify-center p-4 bg-black/90"
-              onClick={() => setLightboxImage(null)}
+              className="fixed inset-0 z-[140] bg-black/92 p-4 md:p-8 pt-[96px] md:pt-[96px] flex flex-col"
+              onClick={closeLightbox}
             >
-              <button
-                type="button"
-                onClick={() => setLightboxImage(null)}
-                className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center text-white/80 hover:text-white text-2xl"
-                aria-label="Закрыть"
-              >
-                ×
-              </button>
-              <motion.img
-                src={lightboxImage}
-                alt=""
-                initial={{ scale: 0.95, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                exit={{ scale: 0.95, opacity: 0 }}
-                transition={{ duration: 0.25 }}
-                onClick={(e) => e.stopPropagation()}
-                className="max-w-full max-h-[90vh] w-auto h-auto object-contain"
-              />
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <span className="px-3 py-2 rounded-[12px] text-sm border border-white/15 text-white/85">
+                    {lightbox.type === 'mockup' ? 'Макет' : 'Чертеж'}
+                  </span>
+                  <span className="font-heading text-sm tabular-nums text-white/55">
+                    {String(lightbox.index + 1).padStart(2, '0')} / {String(lightboxTotal).padStart(2, '0')}
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={(e) => { e.stopPropagation(); goLightboxPrev(); }}
+                    className="w-10 h-10 rounded-full border border-white/15 text-white/80"
+                    aria-label="Назад"
+                  >
+                    ←
+                  </button>
+                  <button
+                    type="button"
+                    onClick={(e) => { e.stopPropagation(); goLightboxNext(); }}
+                    className="w-10 h-10 rounded-full border border-white/15 text-white/80"
+                    aria-label="Вперед"
+                  >
+                    →
+                  </button>
+                  <button
+                    type="button"
+                    onClick={closeLightbox}
+                    className="w-10 h-10 rounded-full border border-white/15 text-white/80"
+                    aria-label="Закрыть"
+                  >
+                    ×
+                  </button>
+                </div>
+              </div>
+              <div className="flex-1 flex items-center justify-center" onClick={(e) => e.stopPropagation()}>
+                <img src={lightboxSrc} alt="" className="max-w-full max-h-[80vh] object-contain" />
+              </div>
             </motion.div>
           )}
         </AnimatePresence>,
@@ -1322,6 +1379,7 @@ function BlockMaterials() {
                     src={m.image}
                     alt={m.title}
                     className="w-full h-full object-cover"
+                    style={m.id === 'sopka-buntina' ? { objectPosition: 'center 38%' } : undefined}
                   />
                 </motion.div>
 
@@ -1695,13 +1753,13 @@ function BlockReadyWorks() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
-              className="fixed inset-0 z-[100] flex items-center justify-center bg-black/92"
+              className="fixed inset-0 z-[140] flex items-center justify-center bg-black/92"
               onClick={() => setLightboxOpen(false)}
             >
               <button
                 type="button"
                 onClick={() => setLightboxOpen(false)}
-                className="absolute top-6 right-6 w-12 h-12 rounded-full flex items-center justify-center text-white/70 hover:text-white z-10 transition-colors border border-white/10 hover:border-white/20"
+                className="absolute top-[96px] md:top-[96px] right-6 w-12 h-12 rounded-full flex items-center justify-center text-white/70 hover:text-white z-10 transition-colors border border-white/10 hover:border-white/20"
                 aria-label="Закрыть"
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
