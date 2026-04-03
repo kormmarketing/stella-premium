@@ -60,7 +60,7 @@ const PHONE = '+7(903)116-81-19';
 const CONTACTS = {
   whatsapp: `https://wa.me/${PHONE.replace(/\D/g, '')}`,
   telegram: 'https://t.me/stellapam',
-  max: 'https://max.ru',
+  max: 'https://max.ru/u/f9LHodD0cOIE2oBqKVJm1aN-mtTa5utCm0wRHiUbCqi257toIDysqmB6UO0',
   phone: `tel:${PHONE.replace(/\s/g, '')}`,
   email: 'stellapremium1999@yandex.ru',
   office: 'Москва, ул. Миклухо-Маклая, 53к1',
