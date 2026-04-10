@@ -854,6 +854,7 @@ const PROJECT_SHOWCASE = {
     { label: 'Сваи по углам', value: 'Армирование: Ø12, глубина: 1 м' },
   ],
   mockups: [
+    '/case-showcase/mockup-main-2.png',
     '/case-showcase/mockup-main.png',
     '/case-showcase/mockup-01.png',
     '/case-showcase/mockup-02.png',
