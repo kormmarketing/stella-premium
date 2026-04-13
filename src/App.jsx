@@ -1801,7 +1801,7 @@ function BlockReadyWorks() {
             </AnimatePresence>
 
             {/* Навигация: стрелки + счётчик */}
-            <div className="flex items-center gap-4 flex-shrink-0">
+            <div className="flex items-center gap-4 flex-shrink-0 max-sm:mx-auto">
               <NavArrow dir="prev" onClick={goPrev} label="Назад" />
               <span
                 className="font-heading tabular-nums min-w-[4ch] text-center"
