@@ -68,6 +68,14 @@ const CONTACTS = {
   mapUrl: 'https://yandex.ru/map-widget/v1/?ll=37.455,55.279&pt=37.506,55.649~37.404,54.909&z=9&l=map',
 };
 
+const NAV_LINKS = [
+  { href: '#showcase', label: 'Проект' },
+  { href: '#production', label: 'Производство' },
+  { href: '#materials', label: 'Материалы' },
+  { href: '#visit', label: 'Замеры' },
+  { href: '#consult', label: 'Контакты' },
+];
+
 // ─── Анимация секции ─────────────────────────────────────────────────────
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
@@ -96,6 +104,14 @@ function Header() {
   const { scrollY } = useScroll();
   const bg = useTransform(scrollY, [0, 100], ['rgba(15,15,16,0)', 'rgba(15,15,16,0.96)']);
   const blur = useTransform(scrollY, [0, 100], ['blur(0px)', 'blur(12px)']);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMenuOpen]);
 
   return (
     <motion.header
@@ -110,18 +126,67 @@ function Header() {
             className="h-10 md:h-11 w-auto object-contain origin-left scale-[1.1] md:scale-[1.2]"
           />
         </a>
-        <div className="flex items-center gap-8 max-md:gap-4">
+        <nav className="hidden lg:flex items-center gap-5">
+          {NAV_LINKS.map((item) => (
+            <a
+              key={item.href}
+              href={item.href}
+              className="text-[13px] font-body font-light tracking-[0.06em] uppercase text-text-muted hover:text-text-main transition-colors"
+            >
+              {item.label}
+            </a>
+          ))}
+        </nav>
+
+        <div className="flex items-center gap-8 max-md:gap-3">
           <a href={`tel:${PHONE.replace(/\s/g, '')}`} className="text-text-muted text-sm font-light hover:text-text-main transition-colors hidden sm:block">
             {PHONE}
           </a>
           <a
             href="#consult"
-            className="inline-flex items-center justify-center gap-2 px-6 py-2.5 max-md:px-5 max-md:h-[52px] max-md:rounded-[16px] border border-white text-text-main text-sm font-light hover:bg-white hover:border-white group transition-all duration-300"
+            className="inline-flex items-center justify-center gap-2 px-6 py-2.5 max-md:px-5 max-md:h-[52px] rounded-[8px] border border-white text-text-main text-sm font-light hover:bg-white hover:border-white group transition-all duration-300"
           >
             <span className="group-hover:text-[#0F0F10] transition-colors duration-300">Связаться</span>
           </a>
+          <button
+            type="button"
+            onClick={() => setIsMenuOpen((v) => !v)}
+            className="lg:hidden w-11 h-11 rounded-[14px] border border-white/20 flex items-center justify-center text-white/85"
+            aria-label="Открыть меню"
+          >
+            <span className="relative w-5 h-4 block">
+              <span className={`absolute left-0 h-px w-5 bg-current transition-all ${isMenuOpen ? 'top-2 rotate-45' : 'top-0'}`} />
+              <span className={`absolute left-0 top-2 h-px w-5 bg-current transition-all ${isMenuOpen ? 'opacity-0' : 'opacity-100'}`} />
+              <span className={`absolute left-0 h-px w-5 bg-current transition-all ${isMenuOpen ? 'top-2 -rotate-45' : 'top-4'}`} />
+            </span>
+          </button>
         </div>
       </div>
+
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.24 }}
+            className="lg:hidden mt-3 rounded-[18px] border border-white/10 bg-[#131416]/95 backdrop-blur-xl p-4"
+          >
+            <div className="flex flex-col">
+              {NAV_LINKS.map((item) => (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setIsMenuOpen(false)}
+                  className="py-3 border-b border-white/10 last:border-0 text-[13px] uppercase tracking-[0.08em] text-[#D7D7D9] font-body"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.header>
   );
 }
@@ -134,7 +199,7 @@ function Hero() {
   const scale = useTransform(scrollYProgress, [0, 0.35], [1, 1.02]);
 
   return (
-    <section ref={ref} className="relative min-h-screen max-md:min-h-0 flex flex-col justify-end lg:justify-center overflow-hidden" style={{ backgroundColor: '#0F0F10' }}>
+    <section id="hero" ref={ref} className="relative min-h-screen max-md:min-h-0 flex flex-col justify-end lg:justify-center overflow-hidden" style={{ backgroundColor: '#0F0F10' }}>
       {/* Desktop: полноэкранное изображение */}
       <motion.div style={{ scale }} className="absolute inset-0 max-md:hidden">
         <img
@@ -180,7 +245,7 @@ function Hero() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.65 }}
-          className="inline-flex items-center justify-center gap-2 min-w-[440px] px-20 py-4 border border-white text-text-main text-sm font-light tracking-wide transition-colors duration-150 group hover:bg-white hover:border-white"
+          className="inline-flex items-center justify-center gap-2 min-w-[440px] px-20 py-4 rounded-[8px] border border-white text-text-main text-sm font-light tracking-wide transition-colors duration-150 group hover:bg-white hover:border-white"
         >
           <span className="group-hover:text-[#0F0F10] transition-colors duration-150">Получить расчёт проекта</span>
           <span className="text-text-muted group-hover:text-[#0F0F10] transition-colors duration-150">→</span>
@@ -226,7 +291,7 @@ function Hero() {
           {/* CTA — центрирован */}
           <a
             href="#consult"
-            className="inline-flex items-center justify-center gap-2 h-[54px] min-w-[200px] px-8 mt-5 rounded-[16px] border border-white text-text-main text-[15px] font-light tracking-wide transition-colors duration-150 group hover:bg-white hover:border-white"
+            className="inline-flex items-center justify-center gap-2 h-[54px] min-w-[200px] px-8 mt-5 rounded-[8px] border border-white text-text-main text-[15px] font-light tracking-wide transition-colors duration-150 group hover:bg-white hover:border-white"
           >
             <span className="group-hover:text-[#0F0F10] transition-colors duration-150">Получить расчёт проекта</span>
             <span className="text-text-muted group-hover:text-[#0F0F10] transition-colors duration-150">→</span>
@@ -490,6 +555,7 @@ function BlockMeaning() {
 
   return (
     <section
+      id="process"
       ref={sectionRef}
       className="relative py-[clamp(6rem,12vh,9rem)] px-6 md:px-12 lg:px-20 overflow-hidden max-md:py-[56px] max-md:px-0"
       style={{ backgroundColor: '#0F0F10' }}
@@ -544,7 +610,7 @@ function BlockMeaning() {
           {/* Mobile CTA — центрирован */}
           <a
             href="#consult"
-            className="hidden max-md:inline-flex items-center justify-center gap-2 h-[54px] px-8 rounded-[16px] border border-white text-text-main text-[15px] font-light tracking-wide transition-colors mt-6 group hover:bg-white hover:border-white max-md:mx-auto"
+            className="hidden max-md:inline-flex items-center justify-center gap-2 h-[54px] px-8 rounded-[8px] border border-white text-text-main text-[15px] font-light tracking-wide transition-colors mt-6 group hover:bg-white hover:border-white max-md:mx-auto"
           >
             <span className="group-hover:text-[#0F0F10] transition-colors">Узнать подробнее</span>
             <span className="text-text-muted group-hover:text-[#0F0F10] transition-colors">→</span>
@@ -608,6 +674,7 @@ function BlockProject() {
 
   return (
     <section
+      id="showcase"
       ref={sectionRef}
       className="relative px-6 md:px-12 lg:px-20 max-md:px-0 md:min-h-[300vh]"
       style={{ backgroundColor: '#0F0F10' }}
@@ -828,7 +895,7 @@ function BlockProject() {
           <div className="flex justify-center mt-5">
             <a
               href="#consult"
-              className="inline-flex items-center justify-center gap-2 h-[54px] min-w-[180px] px-8 rounded-[16px] border border-white text-text-main text-[15px] font-light tracking-wide group hover:bg-white hover:border-white transition-colors"
+              className="inline-flex items-center justify-center gap-2 h-[54px] min-w-[180px] px-8 rounded-[8px] border border-white text-text-main text-[15px] font-light tracking-wide group hover:bg-white hover:border-white transition-colors"
             >
               <span className="group-hover:text-[#0F0F10] transition-colors">Заказать проект</span>
               <span className="text-text-muted group-hover:text-[#0F0F10] transition-colors">→</span>
@@ -913,6 +980,7 @@ function BlockProjects() {
 
   return (
     <section
+      id="production"
       ref={sectionRef}
       className="relative py-[clamp(6rem,12vh,9rem)] px-6 md:px-12 lg:px-20 overflow-hidden max-md:py-[56px] max-md:px-0"
       style={{ backgroundColor: '#0F0F10' }}
@@ -1313,6 +1381,7 @@ function BlockMaterials() {
 
   return (
     <section
+      id="materials"
       ref={ref}
       className="py-section lg:py-section-lg px-6 md:px-12 lg:px-16 max-md:py-[56px] max-md:mobile-container"
       style={{ backgroundColor: '#0F0F10' }}
@@ -1426,7 +1495,7 @@ function BlockMaterials() {
               <button
                 type="button"
                 onClick={handleShowMore}
-                className="inline-flex items-center gap-2 px-8 py-5 border border-[#2A2A2D] rounded-[16px] font-body text-sm font-light tracking-wide transition-all duration-300 hover:bg-[rgba(42,42,45,0.3)] hover:border-[#353538]"
+                className="inline-flex items-center gap-2 px-8 py-5 border border-[#2A2A2D] rounded-[8px] font-body text-sm font-light tracking-wide transition-all duration-300 hover:bg-[rgba(42,42,45,0.3)] hover:border-[#353538]"
                 style={{ color: '#EAEAEA' }}
               >
                 Показать еще
@@ -1435,7 +1504,7 @@ function BlockMaterials() {
             ) : (
               <a
                 href="#consult"
-                className="inline-flex items-center gap-2 px-8 py-5 border border-[#2A2A2D] rounded-[16px] font-body text-sm font-light tracking-wide transition-all duration-300 hover:bg-[rgba(42,42,45,0.3)] hover:border-[#353538]"
+                className="inline-flex items-center gap-2 px-8 py-5 border border-[#2A2A2D] rounded-[8px] font-body text-sm font-light tracking-wide transition-all duration-300 hover:bg-[rgba(42,42,45,0.3)] hover:border-[#353538]"
                 style={{ color: '#EAEAEA' }}
               >
                 Запросить полный список материалов
@@ -1540,6 +1609,7 @@ function BlockReadyWorks() {
 
   return (
     <section
+      id="gallery"
       ref={ref}
       className="py-[7.5rem] px-6 md:px-12 lg:px-20 max-md:py-[56px] max-md:mobile-container"
       style={{ backgroundColor: '#0F0F10' }}
@@ -1807,7 +1877,87 @@ function BlockReadyWorks() {
   );
 }
 
-// ─── 8. Почему нам доверяют проекты ────────────────────────────────────────────
+// ─── 8. Выезд специалиста на участок ───────────────────────────────────────────
+function BlockSiteVisit() {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: '-80px' });
+
+  return (
+    <section
+      id="visit"
+      ref={ref}
+      className="relative py-[100px] px-6 md:px-12 lg:px-20 max-md:py-[72px]"
+      style={{ background: 'linear-gradient(180deg, #141414 0%, #1a1a1a 100%)' }}
+    >
+      <div
+        className="pointer-events-none absolute inset-0"
+        aria-hidden
+        style={{
+          opacity: 0.04,
+          backgroundImage:
+            'repeating-linear-gradient(0deg, transparent 0px, transparent 34px, rgba(255,255,255,0.22) 35px), repeating-linear-gradient(90deg, transparent 0px, transparent 34px, rgba(255,255,255,0.22) 35px)',
+          backgroundSize: '36px 36px',
+        }}
+      />
+
+      <div className="relative max-w-[1200px] mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 22 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+          className="grid lg:grid-cols-[1fr_1fr] gap-10 lg:gap-[60px] items-start"
+        >
+          <div className="w-full aspect-square rounded-[10px] overflow-hidden bg-[#222222]">
+            <img
+              src="/site-visit-form.png"
+              alt="Лист выезда специалиста на участок"
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          <div className="h-full flex flex-col">
+            <span
+              className="inline-block font-body text-[0.75rem] uppercase tracking-[0.2em] mb-2"
+              style={{ color: '#8A8A8A' }}
+            >
+              ЗАМЕРЫ
+            </span>
+            <h2
+              className="font-heading font-medium tracking-[-0.01em] -mt-2 mb-6"
+              style={{ fontSize: '36px', lineHeight: 1.2, color: '#FFFFFF' }}
+            >
+              Выезд менеджера на замеры
+            </h2>
+
+            <p
+              className="font-body font-light mt-auto mb-auto"
+              style={{ fontSize: '16px', lineHeight: 1.6, color: '#CFCFCF' }}
+            >
+              Напишите нам, и мы согласуем удобное для вас время вызеда нашего менеджера для замеров участка и бесплатной консультации.
+              <span className="block mt-2">Это БЕСПЛАТНО!</span>
+            </p>
+
+            <div className="flex flex-col items-center mt-auto pt-6">
+              <a
+                href="#consult"
+                className="inline-flex items-center justify-center px-[22px] py-[14px] rounded-[8px] transition-colors duration-300 hover:bg-[#EAEAEA]"
+                style={{ backgroundColor: '#FFFFFF', color: '#000000', fontSize: '15px', fontWeight: 500 }}
+              >
+                Заказать бесплатный замер
+              </a>
+
+              <p className="font-body font-light mt-3 text-center" style={{ fontSize: '13px', color: '#8A8A8A' }}>
+                Отвечаем сразу. Подберём удобное время
+              </p>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+// ─── 9. Почему нам доверяют проекты ────────────────────────────────────────────
 const TRUST_ICONS = {
   materials: () => (
     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -1862,6 +2012,7 @@ function BlockTrust() {
 
   return (
     <section
+      id="trust"
       ref={ref}
       className="py-section lg:py-[clamp(5rem,10vh,7rem)] px-6 md:px-12 lg:px-20 max-md:py-[56px] max-md:px-0"
       style={{ backgroundColor: '#0F0F10' }}
@@ -2099,7 +2250,7 @@ function BlockFinal() {
                   rel="noopener noreferrer"
                   variants={itemVariants}
                   whileTap={{ scale: 0.98 }}
-                  className="flex items-center justify-center gap-3 w-full py-4 px-5 rounded-[20px] transition-all duration-200 active:opacity-90"
+                  className="flex items-center justify-center gap-3 w-full py-4 px-5 rounded-[8px] transition-all duration-200 active:opacity-90"
                   style={{
                     backgroundColor: 'rgba(255,255,255,0.04)',
                     border: '1px solid rgba(255,255,255,0.08)',
@@ -2117,7 +2268,7 @@ function BlockFinal() {
                   rel="noopener noreferrer"
                   variants={itemVariants}
                   whileTap={{ scale: 0.98 }}
-                  className="flex items-center justify-center gap-3 w-full py-4 px-5 rounded-[20px] transition-all duration-200 active:opacity-90"
+                  className="flex items-center justify-center gap-3 w-full py-4 px-5 rounded-[8px] transition-all duration-200 active:opacity-90"
                   style={{
                     backgroundColor: 'rgba(255,255,255,0.04)',
                     border: '1px solid rgba(255,255,255,0.08)',
@@ -2135,7 +2286,7 @@ function BlockFinal() {
                   rel="noopener noreferrer"
                   variants={itemVariants}
                   whileTap={{ scale: 0.98 }}
-                  className="flex items-center justify-center gap-3 w-full py-4 px-5 rounded-[20px] transition-all duration-200 active:opacity-90"
+                  className="flex items-center justify-center gap-3 w-full py-4 px-5 rounded-[8px] transition-all duration-200 active:opacity-90"
                   style={{
                     backgroundColor: 'rgba(255,255,255,0.04)',
                     border: '1px solid rgba(255,255,255,0.08)',
@@ -2154,7 +2305,7 @@ function BlockFinal() {
                   href={CONTACTS.phone}
                   variants={itemVariants}
                   whileTap={{ scale: 0.98 }}
-                  className="flex items-center justify-center gap-3 w-full py-4 px-5 rounded-[20px] transition-all duration-200 active:opacity-90"
+                  className="flex items-center justify-center gap-3 w-full py-4 px-5 rounded-[8px] transition-all duration-200 active:opacity-90"
                   style={{
                     backgroundColor: 'rgba(255,255,255,0.04)',
                     border: '1px solid rgba(255,255,255,0.08)',
@@ -2173,7 +2324,7 @@ function BlockFinal() {
             <motion.div
               variants={itemVariants}
               transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-              className="hidden md:flex items-center justify-between gap-4 px-5 py-3.5 rounded-[16px] transition-all duration-300 hover:bg-[rgba(255,255,255,0.04)]"
+              className="hidden md:flex items-center justify-between gap-4 px-5 py-3.5 rounded-[8px] transition-all duration-300 hover:bg-[rgba(255,255,255,0.04)]"
               style={{
                 border: '1px solid rgba(255,255,255,0.08)',
                 backgroundColor: 'rgba(255,255,255,0.02)',
@@ -2520,6 +2671,7 @@ function App() {
             <BlockProduction />
             <BlockMaterials />
             <BlockReadyWorks />
+            <BlockSiteVisit />
             <BlockTrust />
             <BlockFinal />
           </>
