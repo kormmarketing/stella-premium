@@ -2,6 +2,31 @@ import { createPortal } from 'react-dom';
 import { motion, AnimatePresence, useInView, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 
+function useBodyScrollLock(locked) {
+  useEffect(() => {
+    if (!locked || typeof document === 'undefined') return;
+
+    const body = document.body;
+    const attr = 'data-scroll-lock-count';
+    const current = Number(body.getAttribute(attr) || '0');
+    const next = current + 1;
+
+    body.setAttribute(attr, String(next));
+    if (current === 0) body.style.overflow = 'hidden';
+
+    return () => {
+      const latest = Number(body.getAttribute(attr) || '1');
+      const decremented = Math.max(0, latest - 1);
+      if (decremented === 0) {
+        body.style.overflow = '';
+        body.removeAttribute(attr);
+      } else {
+        body.setAttribute(attr, String(decremented));
+      }
+    };
+  }, [locked]);
+}
+
 // ─── Контентные данные (легко заменяемые) ─────────────────────────────────
 const IMAGES = {
   hero: '/hero.png',
@@ -89,8 +114,8 @@ function AnimatedSection({ children, className = '' }) {
   return (
     <motion.section
       ref={ref}
-      initial={{ opacity: 0, y: 28 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
+      initial={false}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className={className}
     >
@@ -106,12 +131,7 @@ function Header() {
   const blur = useTransform(scrollY, [0, 100], ['blur(0px)', 'blur(12px)']);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  useEffect(() => {
-    document.body.style.overflow = isMenuOpen ? 'hidden' : '';
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [isMenuOpen]);
+  useBodyScrollLock(isMenuOpen);
 
   return (
     <motion.header
@@ -222,7 +242,7 @@ function Hero() {
         className="relative z-10 px-6 md:px-12 lg:px-16 pb-20 lg:pb-32 pt-[140px] lg:pt-0 max-w-content max-md:hidden"
       >
         <motion.h1
-          initial={{ opacity: 0, y: 24 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           className="font-heading text-hero font-medium text-text-main tracking-[0.02em] max-w-2xl mb-4"
@@ -232,7 +252,7 @@ function Hero() {
         </motion.h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 12 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, delay: 0.4 }}
           className="text-body text-text-muted/80 font-light max-w-lg mb-10"
@@ -242,7 +262,7 @@ function Hero() {
 
         <motion.a
           href="#consult"
-          initial={{ opacity: 0, y: 12 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.65 }}
           className="inline-flex items-center justify-center gap-2 min-w-[440px] px-20 py-4 rounded-[8px] border border-white text-text-main text-sm font-light tracking-wide transition-colors duration-150 group hover:bg-white hover:border-white"
@@ -255,7 +275,7 @@ function Hero() {
       {/* Mobile Hero: центрированная premium композиция */}
       <div className="md:hidden relative z-10 mobile-container pt-[96px] pb-14 flex flex-col items-center text-center">
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
+          initial={false}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
           className="space-y-5 flex flex-col items-center w-full"
@@ -438,6 +458,7 @@ function ProcessStepCard({ step, index, onClick }) {
 function ProcessModal({ stepIndex, onClose }) {
   const modalRef = useRef(null);
   const closeBtnRef = useRef(null);
+  useBodyScrollLock(stepIndex != null);
 
   useEffect(() => {
     closeBtnRef.current?.focus();
@@ -448,10 +469,8 @@ function ProcessModal({ stepIndex, onClose }) {
       if (e.key === 'Escape') onClose();
     };
     document.addEventListener('keydown', handleEscape);
-    document.body.style.overflow = 'hidden';
     return () => {
       document.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = '';
     };
   }, [onClose]);
 
@@ -564,8 +583,8 @@ function BlockMeaning() {
         {/* Текстовая часть — mobile: центрирована, полная ширина */}
         <div className="grid lg:grid-cols-[0.95fr_1.05fr] gap-16 lg:gap-24 items-start mb-16 lg:mb-20 max-md:mb-6 max-md:gap-6 max-md:block max-md:w-full max-md:mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: 28 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            initial={false}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1], delay: 0.05 }}
             className="lg:sticky lg:top-[140px] lg:-mt-16"
           >
@@ -621,7 +640,7 @@ function BlockMeaning() {
       {/* Modal — рендер в body через portal */}
       {typeof document !== 'undefined' && createPortal(
         <AnimatePresence>
-          {activeStep != null && (
+          {activeStep != null && PROCESS_STEP_DETAILS[activeStep] && (
             <motion.div
               key={`process-modal-${activeStep}`}
               initial={{ opacity: 0 }}
@@ -963,10 +982,20 @@ function BlockProjects() {
 
   const openLightbox = (type, index) => setLightbox({ type, index });
   const closeLightbox = () => setLightbox(null);
-
-  const lightboxList = lightbox?.type === 'mockup' ? PROJECT_SHOWCASE.mockups : PROJECT_SHOWCASE.drawings;
-  const lightboxSrc = lightbox && lightboxList ? lightboxList[lightbox.index] : '';
+  const isValidLightbox =
+    !!lightbox &&
+    (lightbox.type === 'mockup' || lightbox.type === 'drawing') &&
+    Number.isInteger(lightbox.index) &&
+    lightbox.index >= 0 &&
+    lightbox.index < (lightbox.type === 'mockup' ? PROJECT_SHOWCASE.mockups.length : PROJECT_SHOWCASE.drawings.length);
+  const lightboxList = !isValidLightbox
+    ? null
+    : lightbox.type === 'mockup'
+      ? PROJECT_SHOWCASE.mockups
+      : PROJECT_SHOWCASE.drawings;
+  const lightboxSrc = isValidLightbox && lightboxList ? lightboxList[lightbox.index] : '';
   const lightboxTotal = lightboxList?.length || 0;
+  useBodyScrollLock(isValidLightbox);
 
   const goLightboxNext = () => {
     if (!lightboxList || !lightbox) return;
@@ -978,6 +1007,17 @@ function BlockProjects() {
     setLightbox((prev) => ({ ...prev, index: (prev.index - 1 + lightboxList.length) % lightboxList.length }));
   };
 
+  useEffect(() => {
+    if (!isValidLightbox) return;
+    const onKey = (e) => {
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') goLightboxPrev();
+      if (e.key === 'ArrowRight') goLightboxNext();
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [isValidLightbox, goLightboxNext, goLightboxPrev]);
+
   return (
     <section
       id="production"
@@ -987,8 +1027,8 @@ function BlockProjects() {
     >
       <div className="max-w-[1520px] mx-auto max-md:mobile-container">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          initial={false}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
           className="mb-8 lg:mb-10 max-md:text-center"
         >
@@ -1004,8 +1044,8 @@ function BlockProjects() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 16, filter: 'blur(4px)' }}
-          animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : {}}
+          initial={false}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
           transition={{ duration: 0.52, ease: [0.22, 1, 0.36, 1] }}
           className="rounded-[28px] border p-4 md:p-6 lg:p-8"
           style={{ backgroundColor: '#16171A', borderColor: 'rgba(255,255,255,0.06)' }}
@@ -1146,7 +1186,7 @@ function BlockProjects() {
 
       {typeof document !== 'undefined' && createPortal(
         <AnimatePresence>
-          {lightbox && lightboxList && (
+          {isValidLightbox && lightboxList && lightboxSrc && (
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -1248,7 +1288,7 @@ function BlockProduction() {
             </span>
             <motion.h2
               initial={{ opacity: 0, y: 28 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
               className="font-heading font-medium tracking-[-0.02em] mb-4 max-md:text-[30px] max-md:mb-4 max-md:w-full"
               style={{
@@ -1269,7 +1309,7 @@ function BlockProduction() {
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{
                     duration: 0.5,
                     delay: 0.2 + i * 0.12,
@@ -1308,7 +1348,7 @@ function BlockProduction() {
                 <motion.div
                   key={i}
                   initial={{ opacity: 0, y: 12 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : {}}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.45, delay: 0.12 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
                   className="flex items-center justify-center gap-3 text-center w-full"
                 >
@@ -1390,7 +1430,7 @@ function BlockMaterials() {
         {/* Заголовок — mobile: центрирован */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           className="mb-16 lg:mb-20 max-md:mb-10"
         >
@@ -1414,7 +1454,7 @@ function BlockMaterials() {
         {/* Сетка 4 колонки */}
         <motion.div
           initial="hidden"
-          animate={isInView ? 'visible' : 'hidden'}
+          animate="visible"
           variants={{
             visible: { transition: { staggerChildren: 0.05, delayChildren: 0.1 } },
             hidden: {},
@@ -1487,7 +1527,7 @@ function BlockMaterials() {
         {(hasMore || isExpanded) && (
           <motion.div
             initial={{ opacity: 0, y: 16 }}
-            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             className="mt-12 lg:mt-16 flex justify-center"
           >
@@ -1578,6 +1618,7 @@ function BlockReadyWorks() {
   const [index, setIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [hovered, setHovered] = useState(false);
+  useBodyScrollLock(lightboxOpen);
 
   const goPrev = () => setIndex((i) => (i - 1 + TOTAL) % TOTAL);
   const goNext = () => setIndex((i) => (i + 1) % TOTAL);
@@ -1596,10 +1637,8 @@ function BlockReadyWorks() {
       if (e.key === 'ArrowRight') goNext();
     };
     document.addEventListener('keydown', onKey);
-    document.body.style.overflow = 'hidden';
     return () => {
       document.removeEventListener('keydown', onKey);
-      document.body.style.overflow = '';
     };
   }, [lightboxOpen]);
 
@@ -1618,7 +1657,7 @@ function BlockReadyWorks() {
         {/* Label, заголовок — mobile: центрированы */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: easeSoft }}
           className="mb-12 lg:mb-14 max-md:mb-8 max-md:w-full max-md:mx-auto"
         >
@@ -1645,7 +1684,7 @@ function BlockReadyWorks() {
         {/* Слайдер — центральный showcase */}
         <motion.div
           initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
+          animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.1 }}
           className="relative"
         >
@@ -1772,7 +1811,7 @@ function BlockReadyWorks() {
           {/* Блок текста + управление — одна линия */}
           <motion.div
             initial={{ opacity: 0 }}
-            animate={isInView ? { opacity: 1 } : {}}
+            animate={{ opacity: 1 }}
             transition={{ duration: 0.4, delay: 0.2 }}
             className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mt-8 lg:mt-10 max-w-[1100px] mx-auto px-2"
           >
@@ -1903,7 +1942,7 @@ function BlockSiteVisit() {
       <div className="relative max-w-[1200px] mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 22 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
           className="grid lg:grid-cols-[1fr_1fr] gap-10 lg:gap-[60px] items-start"
         >
@@ -2021,7 +2060,7 @@ function BlockTrust() {
         {/* Label и заголовок — mobile: центрированы */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           className="mb-8 lg:mb-10 max-md:mb-6 max-md:w-full max-md:mx-auto"
         >
@@ -2042,7 +2081,7 @@ function BlockTrust() {
         {/* Desktop: горизонтальная лента */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
           className="hidden md:flex flex-nowrap overflow-x-auto overflow-y-hidden rounded-[24px] border border-[#2A2A2D] lg:overflow-hidden scrollbar-hide"
           style={{ backgroundColor: '#141518' }}
@@ -2117,7 +2156,7 @@ function BlockTrust() {
         {/* Mobile: premium glass-карточки с иконками */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.05, ease: [0.22, 1, 0.36, 1] }}
           className="md:hidden flex flex-col gap-3 w-full max-w-[520px] mx-auto"
         >
@@ -2127,7 +2166,7 @@ function BlockTrust() {
               <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 14 }}
-                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.45, delay: 0.1 + i * 0.07, ease: [0.22, 1, 0.36, 1] }}
                 whileTap={{ scale: 1.02 }}
                 className="relative rounded-[24px] p-5 overflow-hidden"
@@ -2194,7 +2233,7 @@ function BlockFinal() {
     >
       <motion.div
         initial="hidden"
-        animate={isInView ? 'visible' : 'hidden'}
+        animate="visible"
         variants={containerVariants}
         className="max-w-[1520px] mx-auto rounded-[24px] p-8 md:p-10 lg:p-12 max-md:rounded-[24px] max-md:p-5"
         style={{
@@ -2438,7 +2477,7 @@ function Footer() {
         {/* Верхняя строка */}
         <motion.div
           initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
+          animate={{ opacity: 1 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6 mb-12 lg:mb-14 max-md:mb-6 max-md:gap-4"
         >
@@ -2469,7 +2508,7 @@ function Footer() {
         {/* Центральная зона — скрыта на mobile */}
         <motion.div
           initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
+          animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
           className="hidden md:flex flex-wrap items-center gap-x-4 gap-y-2 mb-10 lg:mb-12 font-body text-sm font-light"
           style={{ color: '#8A8A8A' }}
@@ -2486,7 +2525,7 @@ function Footer() {
         {/* Нижняя зона */}
         <motion.div
           initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : {}}
+          animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
           className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pt-6 border-t border-[#2A2A2D]/60"
         >
@@ -2639,6 +2678,53 @@ function PrivacyContent() {
 // ─── App ─────────────────────────────────────────────────────────────────
 function App() {
   const isPrivacyPage = typeof window !== 'undefined' && window.location.pathname === '/privacy';
+
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+
+    const loadScript = (src) => new Promise((resolve, reject) => {
+      const existing = document.querySelector(`script[src="${src}"]`);
+      if (existing) {
+        resolve();
+        return;
+      }
+      const script = document.createElement('script');
+      script.src = src;
+      script.async = true;
+      script.defer = true;
+      script.onload = () => resolve();
+      script.onerror = () => reject(new Error(`Failed to load script: ${src}`));
+      document.body.appendChild(script);
+    });
+
+    const initExternalScripts = async () => {
+      try {
+        await loadScript('https://mc.yandex.ru/metrika/tag.js?id=108348707');
+        if (typeof window !== 'undefined' && typeof window.ym === 'function') {
+          window.ym(108348707, 'init', {
+            ssr: true,
+            webvisor: true,
+            clickmap: true,
+            ecommerce: 'dataLayer',
+            referrer: document.referrer,
+            url: window.location.href,
+            accurateTrackBounce: true,
+            trackLinks: true,
+          });
+        }
+      } catch (error) {
+        console.error('Yandex Metrika failed to initialize:', error);
+      }
+
+      try {
+        await loadScript('https://cdn.callibri.ru/callibri.js');
+      } catch (error) {
+        console.error('Callibri failed to initialize:', error);
+      }
+    };
+
+    initExternalScripts();
+  }, []);
 
   useEffect(() => {
     const desc = document.querySelector('meta[name="description"]');

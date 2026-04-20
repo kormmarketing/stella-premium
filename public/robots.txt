@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /privacy
+
+Sitemap: https://stellapremium.moscow/sitemap.xml
+Host: stellapremium.moscow
